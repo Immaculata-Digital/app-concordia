@@ -1,0 +1,149 @@
+.dashboard-dnd-grid {
+    position: relative;
+    width: 100%;
+}
+
+.dashboard-dnd-slot {
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-dnd-slot--dragging {
+    transition: none;
+}
+
+.dashboard-dnd-droppable {
+    background-color: transparent;
+    border: none;
+    border-radius: 12px;
+    min-height: auto;
+    padding: 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.dashboard-dnd-droppable--dragging {
+    min-height: 150px;
+}
+
+.dashboard-dnd-droppable--dragging-empty {
+    background-color: rgb(var(--color-primary-rgb), 0.02);
+    border: 2px dashed var(--color-border);
+    padding: 16px;
+}
+
+.dashboard-dnd-droppable--dragging-empty::after {
+    color: var(--color-on-secondary);
+    content: "Solte aqui";
+    font-size: 0.875rem;
+    font-weight: 500;
+    left: 50%;
+    opacity: 0.5;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dashboard-dnd-overlay-item {
+    cursor: grabbing;
+    opacity: 0.8;
+    transition: none;
+}
+
+/* DashboardBodyCardActions BEM Styles */
+.dashboard-actions-card__grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+    margin-top: 8px;
+    width: 100%;
+}
+
+/* sm breakpoint: 600px to 899px */
+@media (width >= 600px) and (width <= 899px) {
+    .dashboard-actions-card__grid--two-cols {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* md breakpoint and up (900px+) - specifically ensure 1 column on desktop dashboard */
+@media (width >= 900px) {
+    .dashboard-actions-card__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dashboard-actions-card__button {
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    justify-content: flex-start;
+    letter-spacing: 0.01em;
+    padding: 10px 16px;
+    text-transform: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+.dashboard-actions-card__button .MuiButton-startIcon {
+    transition: transform 0.3s ease;
+}
+
+.dashboard-actions-card__button:hover {
+    transform: translateY(-2px);
+}
+
+.dashboard-actions-card__button:hover .MuiButton-startIcon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* Button Variants */
+.dashboard-actions-card__button--primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border: none;
+    box-shadow: 0 4px 12px rgb(var(--color-primary-rgb), 0.25);
+    color: var(--color-on-primary);
+}
+
+.dashboard-actions-card__button--primary:hover {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    box-shadow: 0 6px 16px rgb(var(--color-primary-rgb), 0.35);
+    filter: brightness(1.1);
+}
+
+.dashboard-actions-card__button--outline {
+    background-color: transparent;
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.dashboard-actions-card__button--outline:hover {
+    background-color: rgb(var(--color-primary-rgb), 0.05);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.dashboard-actions-card__button--danger {
+    background-color: transparent;
+    border-color: #ff5252;
+    color: #ff5252;
+}
+
+.dashboard-actions-card__button--danger:hover {
+    background-color: rgb(255 82 82 / 8%);
+    border-color: #ff5252;
+}
+
+/* Disabled State override (increased specificity) */
+.MuiButton-root.dashboard-actions-card__button.Mui-disabled {
+    background-color: rgb(0 0 0 / 4%);
+    border-color: var(--color-border-lighter);
+    color: var(--color-on-secondary);
+    opacity: 0.5;
+    transform: none;
+}
+
+.theme-dark .MuiButton-root.dashboard-actions-card__button.Mui-disabled {
+    background-color: rgb(255 255 255 / 4%);
+}

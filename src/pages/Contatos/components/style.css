@@ -1,0 +1,36 @@
+/* LinkGeneratedModal Styles */
+
+.link-modal__alert {
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* Override MUI specific internal slots nicely without important if possible, 
+   or using high specificity */
+.link-modal__alert .MuiAlert-icon {
+    color: #fff;
+}
+
+.link-modal__alert .MuiAlert-message {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Ensure overrides for standard/filled variants if they leak through */
+.link-modal__alert.MuiAlert-standardSuccess,
+.link-modal__alert.MuiAlert-filledSuccess {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+.link-modal__input {
+    flex: 1;
+}
+
+.link-modal__whatsapp-btn {
+    align-self: stretch;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-transform: none;
+}

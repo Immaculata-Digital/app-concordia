@@ -1,0 +1,52 @@
+.set-password-page {
+  align-items: center;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px;
+}
+
+.MuiPaper-root.set-password-page__card {
+  border-radius: 24px;
+  box-shadow: 0 20px 45px rgb(15 23 42 / 12%);
+  max-width: 420px;
+  padding: 32px;
+  width: 100%;
+}
+
+.set-password-page .MuiTypography-root.set-password-page__title {
+  font-weight: 600;
+}
+
+.set-password-page .MuiTypography-root.set-password-page__subtitle {
+  color: var(--color-on-secondary);
+  margin-bottom: 24px;
+}
+
+.set-password-page__stack {
+  gap: 20px;
+}
+
+.MuiButton-root.set-password-page__submit-btn {
+  background-color: var(--color-primary);
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 10px;
+  text-transform: none;
+}
+
+.MuiButton-root.set-password-page__submit-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+@media (width <= 768px) {
+  .set-password-page {
+    padding: 16px;
+  }
+
+  .MuiPaper-root.set-password-page__card {
+    border-radius: 20px;
+    padding: 24px;
+  }
+}

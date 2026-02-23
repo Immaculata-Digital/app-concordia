@@ -1,0 +1,301 @@
+:root {
+    --color-unread-badge-bg: #000;
+    --color-unread-badge-border: #FFF;
+}
+
+.theme-dark {
+    --color-unread-badge-bg: #FFF;
+    --color-unread-badge-border: #000;
+}
+
+/* Override for specifically unread items to have a very subtle background tint */
+.notification-page-item.unread {
+    background-color: rgb(var(--color-primary-rgb), 0.04);
+}
+
+/* Header Action Buttons - Standardized */
+
+/* Header Action Buttons - Standardized */
+.notification-action-btn {
+    align-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 10px;
+    color: var(--color-text);
+    display: flex;
+    height: 36px;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 36px;
+}
+
+.notification-action-btn:hover {
+    background: var(--color-hover);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}
+
+.notification-action-btn--active {
+    background: var(--color-primary-faint);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* Toggle Group - Component-specific standardizer */
+.notification-toggle-group {
+    /* Perfect height matching action buttons */
+    align-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 12px;
+    gap: 3px;
+    height: 36px;
+    padding: 3px;
+}
+
+.notification-toggle-btn {
+    border: none;
+    border-radius: 8px;
+    color: var(--color-text);
+    height: 30px;
+
+    /* Internal height */
+    min-width: 38px;
+    opacity: 0.6;
+    padding: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification-toggle-btn:not(.Mui-selected):hover {
+    background-color: var(--color-hover);
+    opacity: 1;
+}
+
+.notification-toggle-btn.Mui-selected {
+    background-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgb(var(--color-primary-rgb), 0.3);
+    color: var(--color-on-primary-contrast);
+    opacity: 1;
+}
+
+.notification-toggle-btn.Mui-selected:hover {
+    background-color: var(--color-primary-dark);
+    box-shadow: 0 4px 12px rgb(var(--color-primary-rgb), 0.4);
+}
+
+/* Density Menu - TableCard Pattern */
+.density-menu .MuiPaper-root {
+    background: var(--color-surface);
+}
+
+.density-menu .MuiMenuItem-root.Mui-selected {
+    background-color: var(--color-primary-faint);
+    color: var(--color-primary);
+}
+
+.density-menu .MuiMenuItem-root.Mui-selected .MuiSvgIcon-root {
+    color: var(--color-primary);
+}
+
+.density-menu .MuiMenuItem-root.Mui-selected:hover {
+    background-color: var(--color-primary-faint);
+    opacity: 0.9;
+}
+
+.theme-dark .notification-page-item.unread {
+    background-color: rgb(var(--color-primary-rgb), 0.08);
+}
+
+/* Consistent entrance animation */
+.notification-page-item {
+    will-change: transform, opacity;
+}
+
+.priority-star-icon {
+    color: var(--color-on-secondary);
+
+    /* Neutral system gray */
+    opacity: 0.8;
+}
+
+/* Swipe and Desktop Action Styles */
+.notification-swipe-container {
+    /* Allow space for scale/shadow without clipping */
+    margin: -8px;
+    overflow: visible;
+    padding: 8px;
+    position: relative;
+}
+
+/* Ensure the background for swipe still follows the row shape */
+.notification-swipe-background {
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    height: calc(100% - 16px);
+    left: 8px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+    width: calc(100% - 16px);
+    z-index: 0;
+}
+
+.notification-swipe-background.swipe-read {
+    background-color: var(--color-primary);
+    color: #000;
+    justify-content: flex-start;
+    padding-left: 24px;
+}
+
+.notification-swipe-background.swipe-unread {
+    background-color: #607D8B;
+    color: #FFF;
+
+    /* Slate gray/blue for marking as unread */
+    justify-content: flex-end;
+    padding-right: 24px;
+}
+
+.theme-dark .notification-swipe-background.swipe-unread {
+    background-color: #455A64;
+}
+
+.notification-row-wrapper {
+    position: relative;
+    transition: transform 0.1s ease-out;
+    z-index: 1;
+}
+
+.notification-desktop-action {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notification-page-item:hover .notification-desktop-action {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Premium Category Badge */
+.notification-category-badge {
+    opacity: 0.85;
+    transform: translateY(0);
+}
+
+.theme-dark .notification-category-badge {
+    backdrop-filter: blur(4px);
+}
+
+.notification-page-item:hover .notification-category-badge {
+    box-shadow: 0 4px 8px rgb(0 0 0 / 8%);
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* Unread Pulse Animation */
+@keyframes pulse-unread {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.theme-dark .notification-swipe-background {
+    background-color: var(--color-primary);
+    color: #000;
+}
+
+@media (width <= 768px) {
+    .notification-page-item {
+        padding: 16px;
+    }
+
+    .dashboard-icon-badge {
+        width: 36px;
+    }
+}
+
+/* Fluid Scroll & Entrance Animations */
+.notification-reveal-batch {
+    animation: reveal-batch 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes reveal-batch {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Staggered revealing for items within a batch */
+.notification-item-animate {
+    animation: item-slide 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes item-slide {
+    from {
+        opacity: 0;
+        transform: scale(0.98) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Group Header Refinement */
+.notification-group-header {
+    backdrop-filter: blur(8px);
+    background: var(--color-background);
+    margin: 32px -8px 12px;
+    padding: 0 8px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.notification-end-message {
+    color: var(--color-on-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    padding: 48px 0;
+    text-align: center;
+}
+
+.notification-end-message::before,
+.notification-end-message::after {
+    background: currentcolor;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    margin: 0 16px;
+    opacity: 0.2;
+    vertical-align: middle;
+    width: 30px;
+}

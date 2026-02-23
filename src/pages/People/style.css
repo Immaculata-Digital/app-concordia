@@ -1,0 +1,24 @@
+.people-page {
+  background-color: var(--color-background);
+  padding: 0;
+  width: 100%;
+}
+
+.people-page__loading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 400px;
+  justify-content: center;
+}
+
+.people-page__label {
+  font-weight: 600;
+}
+
+@media (width <= 768px) {
+  .people-page {
+    padding: 0;
+  }
+}

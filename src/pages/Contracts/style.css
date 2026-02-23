@@ -1,0 +1,319 @@
+.contracts-page {
+    padding: 0;
+    width: 100%;
+}
+
+.contracts-page__loading {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.contracts-page__no-access-message {
+    margin-top: 32px;
+}
+
+.contract-dashboard-modal {
+    padding: 0;
+    width: 100%;
+}
+
+.contract-dashboard-modal__loading {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.contract-dashboard-modal__top-info {
+    align-items: center;
+    display: flex;
+    gap: 24px;
+}
+
+.contract-dashboard-modal__status-box {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+
+.contract-dashboard-modal__status-chip {
+    font-weight: 600;
+}
+
+.contract-dashboard-modal__desktop-grid {
+    display: block;
+}
+
+.contract-dashboard-modal__mobile-stack {
+    display: none;
+}
+
+@media (width <=899px) {
+
+    /* md breakpoint is 900px */
+    .contract-dashboard-modal__desktop-grid {
+        display: none;
+    }
+
+    .contract-dashboard-modal__mobile-stack {
+        display: flex;
+    }
+}
+
+
+/* DashboardContentCard */
+.dashboard-content-card__container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 120px;
+    width: 100%;
+}
+
+.dashboard-content-card__icon-badge {
+    align-items: center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 12px;
+}
+
+.dashboard-content-card__icon-badge--has-content {
+    background-color: rgb(var(--color-primary-rgb), 0.12);
+}
+
+.dashboard-content-card__icon-badge--empty {
+    background-color: rgb(255 255 255 / 5%);
+}
+
+.dashboard-content-card__icon {
+    font-size: 32px;
+}
+
+.dashboard-content-card__icon--primary {
+    color: var(--color-primary);
+}
+
+/* Common Dashboard utilities */
+.dashboard-value--monospace {
+    font-family: monospace;
+}
+
+.dashboard-text--italic {
+    font-style: italic;
+}
+
+.dashboard-text--semibold {
+    font-weight: 600;
+}
+
+.dashboard-text--medium {
+    font-weight: 500;
+}
+
+/* DashboardClienteCard */
+.dashboard-cliente-card__address {
+    white-space: pre-wrap;
+}
+
+/* DashboardAttachmentsCard */
+.dashboard-attachments-card__item-text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Dialogs */
+.attachment-dialog__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 8px;
+}
+
+.client-dialog__address-box {
+    margin-top: 16px;
+}
+
+.content-dialog__import-section {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.content-dialog__import-field {
+    flex: 1;
+}
+
+.content-dialog__import-button {
+    height: 40px;
+}
+
+.contract-form-container {
+    background: #121212;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+/* --- Status History: Brand Consistent Premium v8 (Round Pills & Standard Icons) --- */
+
+/* Timeline Connector - Minimalist Precision */
+.status-history-card .dashboard-list-item.status-history-item::before {
+    background: linear-gradient(180deg, var(--color-border-lighter) 0%, rgba(var(--color-border-lighter-rgb), 0.2) 100%);
+    bottom: -28px;
+    content: "";
+    left: 20px;
+    /* Center of the badge */
+    position: absolute;
+    top: 20px;
+    width: 2px;
+    z-index: 1;
+}
+
+.status-history-card .status-history-item {
+    margin-bottom: 24px;
+    padding-top: 2px;
+}
+
+/* Layout Refinement: Align text with badge center */
+.status-history-card .status-history-item .MuiListItemText-root {
+    margin-top: 8px;
+}
+
+
+/* Brand-Consistent Icon Badge - Primary Alpha Background (User Request) */
+.status-history-card .status-history-item .dashboard-icon-badge {
+    background-color: var(--color-primary);
+    border: none;
+    height: 40px;
+    margin-right: 18px;
+    position: relative;
+    width: 40px;
+    z-index: 2;
+}
+
+/* Dark Mode - Constructive Override */
+.theme-dark .status-history-card .status-history-item .dashboard-icon-badge {
+    background-color: rgba(var(--color-primary-rgb), 0.15);
+}
+
+/* Global Icon Standard Size */
+.status-history-card .status-history-item .dashboard-icon-badge .MuiSvgIcon-root {
+    font-size: 1.4rem;
+}
+
+.theme-dark .status-history-item__pill {
+    background-color: rgba(var(--color-primary-rgb), 0.15);
+    color: var(--color-primary);
+}
+
+.status-history-item__pill {
+    border-radius: 50px;
+    display: inline-flex;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+}
+
+.status-history-item .dashboard-text-primary {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* SUPPORTIVE ELEMENTS (Intentionally Secondary) */
+.status-history-item__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.status-history-item__meta-row {
+    align-items: center;
+    color: var(--color-on-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    gap: 6px;
+    letter-spacing: 0;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    text-transform: none;
+}
+
+.theme-dark .status-history-item__meta-row {
+    color: #fff;
+    /* High Contrast White (Dark Mode) */
+}
+
+.status-history-item__author {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.theme-dark .status-history-item__author {
+    color: #fff;
+    /* High Contrast White (Dark Mode) */
+}
+
+
+
+.status-history-item__origin-inline {
+    font-style: italic;
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+/* Subtle Message Card */
+.status-history-item__message-card {
+    background-color: rgba(var(--color-primary-rgb), 0.06);
+    /* Darkened for Light Mode visibility */
+    border-radius: 8px;
+    max-width: 95%;
+    padding: 10px 14px;
+    position: relative;
+}
+
+.theme-dark .status-history-item__message-card {
+    background-color: rgba(255, 255, 255, 0.015);
+}
+
+.status-history-item__reason-text {
+    color: var(--color-text);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.status-history-item__reason-text--empty {
+    font-style: italic;
+    opacity: 0.35;
+}
+
+/* Global Fixes sync: ensure icons in badges are centered */
+.status-history-card .dashboard-icon-badge svg {
+    margin: 0;
+}
+
+/* Cleanup */
+.status-history-item__row,
+.status-history-item__label,
+.status-history-item__value,
+.status-history-item__icon,
+.status-history-item__reason-block,
+.status-history-item__origin-tag,
+.status-active-text,
+.status-draft-text,
+.status-pending-text {
+    display: none;
+}

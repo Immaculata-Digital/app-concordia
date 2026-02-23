@@ -1,0 +1,186 @@
+.dashboard-page {
+  align-items: center;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem;
+}
+
+.dashboard-card {
+  border-radius: 16px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.dashboard-actions {
+  margin-top: 2rem;
+}
+
+@media (width <=768px) {
+  .dashboard-page {
+    padding: 1.5rem;
+  }
+
+  .dashboard-card {
+    padding: 2rem;
+  }
+}
+
+/* Responsividade adicional para mobile */
+@media (width <=600px) {
+  .dashboard-page {
+    padding: 1rem;
+  }
+
+  .dashboard-card {
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+}
+
+/* Prevenir overflow horizontal */
+.dashboard-card,
+.dashboard-card * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Garantir que gráficos não causem overflow */
+.dashboard-page .dashboard-card svg {
+  height: auto;
+  max-width: 100%;
+}
+
+.theme-dark .dashboard-card .MuiTypography-root {
+  color: var(--color-text);
+}
+
+.theme-dark .dashboard-card .MuiTypography-colorTextSecondary {
+  color: var(--color-on-secondary);
+}
+
+/* Corrigir corte dos botões de período no header do card */
+.dashboard-card .dashboard-section-title {
+  min-width: 0;
+  overflow: visible;
+}
+
+.dashboard-card .dashboard-section-title>*:first-child {
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.dashboard-card .dashboard-section-title>*:last-child {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow: visible;
+}
+
+/* Dashboard Action Bar - Botões de reset layout e expand/collapse */
+.dashboard-action-btn {
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-on-secondary);
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  transition: all 0.2s ease;
+  width: 36px;
+}
+
+.dashboard-action-btn:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Modo escuro - Botões de ação do dashboard */
+.theme-dark .dashboard-action-btn {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-on-secondary);
+}
+
+.theme-dark .dashboard-action-btn:hover {
+  background-color: rgb(255 255 255 / 8%);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.dashboard-page__container {
+  padding-top: 8px;
+  width: 100%;
+}
+
+.dashboard-page__stack--mobile {
+  padding-top: 8px;
+}
+
+/* Dashboard Empty State - Mensagem quando não há cards disponíveis */
+.dashboard-page__empty-state {
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 64px 16px;
+  text-align: center;
+}
+
+@media (width >= 600px) {
+  .dashboard-page__empty-state {
+    padding: 96px 16px;
+  }
+}
+
+.dashboard-page__empty-icon {
+  color: var(--color-on-secondary);
+  font-size: 60px;
+  margin-bottom: 24px;
+  opacity: 0.5;
+}
+
+@media (width >= 600px) {
+  .dashboard-page__empty-icon {
+    font-size: 80px;
+  }
+}
+
+.dashboard-page__empty-title {
+  color: var(--color-text);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dashboard-page__empty-text {
+  color: var(--color-on-secondary);
+  max-width: 500px;
+  opacity: 0.8;
+}
+
+/* Modo escuro - Dashboard Empty State */
+.theme-dark .dashboard-page__empty-state {
+  background-color: transparent;
+  border-color: rgb(255 255 255 / 12%);
+}
+
+.theme-dark .dashboard-page__empty-icon {
+  color: #9e9e9e;
+  opacity: 1;
+}
+
+.theme-dark .dashboard-page__empty-title {
+  color: rgb(255 255 255 / 87%);
+}
+
+.theme-dark .dashboard-page__empty-text {
+  color: rgb(255 255 255 / 60%);
+}

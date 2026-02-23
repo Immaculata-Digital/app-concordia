@@ -1,0 +1,12 @@
+/* Toast (Snackbar) Component Styles */
+
+.toast__alert {
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 30%);
+    width: 100%;
+}
+
+/* Ensure high z-index stacking context if needed */
+.toast .MuiSnackbar-root {
+    z-index: var(--z-snackbar);
+}

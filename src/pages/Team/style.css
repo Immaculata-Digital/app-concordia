@@ -1,0 +1,15 @@
+.placeholder-page {
+  align-items: center;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 4rem);
+}
+
+.placeholder-card {
+  border-radius: 24px;
+  max-width: 640px;
+  padding: 2.5rem;
+  width: 100%;
+}
+

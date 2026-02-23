@@ -1,0 +1,15 @@
+.parametrizacoes-page {
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 0;
+  width: 100%;
+}
+
+.parametrizacoes-page__loading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  padding: 48px;
+}

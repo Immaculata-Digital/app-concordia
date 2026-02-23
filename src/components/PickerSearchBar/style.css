@@ -1,0 +1,44 @@
+.picker-search-bar {
+    background-color: var(--color-surface);
+    padding: 8px;
+}
+
+.picker-search-bar .MuiOutlinedInput-root {
+    background-color: var(--color-background);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.picker-search-bar .MuiOutlinedInput-root:hover {
+    background-color: var(--color-hover);
+}
+
+.picker-search-bar .MuiOutlinedInput-notchedOutline {
+    border-color: var(--color-border);
+}
+
+.picker-search-bar .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-width: 1px;
+}
+
+.picker-search-bar .picker-search-bar__icon {
+    color: var(--color-on-secondary);
+    opacity: 0.7;
+}
+
+.theme-dark .picker-search-bar .picker-search-bar__icon {
+    color: var(--color-on-secondary);
+}
+
+.picker-search-bar__clear {
+    padding: 4px;
+}
+
+.theme-dark .picker-search-bar .MuiOutlinedInput-root {
+    background-color: rgb(255 255 255 / 5%);
+}
+
+.theme-dark .picker-search-bar .MuiOutlinedInput-root:hover {
+    background-color: rgb(255 255 255 / 8%);
+}

@@ -1,0 +1,220 @@
+/* Document Editor Styles */
+:root {
+    --a4-width: 210mm;
+    --a4-height: 297mm;
+    --page-shadow: 0 4px 20px rgb(0 0 0 / 8%);
+    --bg-canvas: #F5F5F7;
+}
+
+/* Dark Theme Support */
+body.theme-dark {
+    --bg-canvas: #1c1c1e;
+
+    /* Dark gray for canvas */
+    --page-shadow: 0 4px 20px rgb(0 0 0 / 40%);
+}
+
+.theme-dark {
+    --bg-canvas: #1c1c1e;
+}
+
+.document-canvas {
+    align-items: center;
+    background-color: var(--bg-canvas);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    min-height: calc(100vh - 64px);
+    overflow-y: auto;
+    padding: 40px 0;
+    position: relative;
+}
+
+.a4-page {
+    animation: fade-in-page 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+    box-shadow: var(--page-shadow);
+    box-sizing: border-box;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: auto;
+    height: var(--a4-height);
+    justify-content: space-between;
+    max-height: var(--a4-height);
+    min-height: var(--a4-height);
+
+    /* Default margins */
+    overflow: hidden;
+    padding: 20mm;
+    position: relative;
+    transition: transform 0.2s ease;
+    width: var(--a4-width);
+}
+
+@keyframes fade-in-page {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Page with custom layout (header/footer) takes control of padding */
+.a4-page[data-has-layout="true"] {
+    padding: 0;
+}
+
+.a4-content-area {
+    height: 100%;
+    margin-bottom: auto;
+    position: relative;
+    width: 100%;
+}
+
+/* Base padding for content */
+.a4-page[data-has-layout="true"] .a4-content-area {
+    box-sizing: border-box;
+
+    /* Space for footer + safety margin */
+    margin-top: 32px;
+    padding-bottom: 30mm;
+    padding-left: 20mm;
+    padding-right: 20mm;
+}
+
+.watermark-overlay {
+    height: 60%;
+    left: 50%;
+    opacity: 0.12;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    z-index: 0;
+}
+
+
+.a4-footer {
+    background: transparent;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+}
+
+/* Watermark Styles */
+.watermark-container {
+    align-items: center;
+    display: flex;
+    height: 60%;
+    justify-content: center;
+    left: 50%;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    z-index: 0;
+}
+
+/* Header UI Transitions */
+.editor-header {
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+    position: sticky;
+    top: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1100;
+}
+
+.editor-header .MuiIconButton-root {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Page Indicator */
+.page-number-indicator {
+    backdrop-filter: blur(4px);
+    background: rgb(255 255 255 / 80%);
+    border-radius: 4px;
+    bottom: 40px;
+    color: var(--color-on-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.6;
+    padding: 2px 8px;
+    pointer-events: none;
+    position: absolute;
+    right: 40px;
+    z-index: 5;
+}
+
+.a4-page[data-has-layout="false"] .page-number-indicator {
+    bottom: 20px;
+    right: 20px;
+}
+
+.editor-header .MuiStack-root {
+    transition: width 0.3s ease;
+}
+
+/* Fullscreen Adjustments */
+.editor-fullscreen {
+    background: var(--color-background);
+    height: 100vh;
+    left: 0;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1201;
+
+    >div {
+        margin-top: 64px;
+    }
+}
+
+.editor-fullscreen .a4-page-container {
+    padding-bottom: 40px;
+    padding-top: 80px;
+}
+
+/* Mobile Adaptation */
+@media (width <=768px) {
+    .document-canvas {
+        background: white;
+        padding: 0;
+    }
+
+    .a4-page {
+        box-shadow: none;
+        height: auto;
+        margin-bottom: 0;
+        min-height: 100vh;
+        padding: 16px;
+        width: 100%;
+    }
+}
+
+/* Document Block Editor Overrides */
+.document-block-editor {
+    background: transparent;
+    border: none;
+    min-height: auto;
+    outline: none;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+.document-block-editor .block-editor__content {
+    padding: 0;
+    width: 100%;
+}

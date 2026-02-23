@@ -1,0 +1,172 @@
+/* CPFCNPJPicker - Estilo Google */
+.cpf-cnpj-picker-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.cpf-cnpj-picker {
+    width: 100%;
+}
+
+.cpf-cnpj-picker .MuiOutlinedInput-root {
+    background-color: transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-dark .cpf-cnpj-picker .MuiOutlinedInput-root {
+    background-color: transparent;
+    color: var(--color-text);
+}
+
+/* Input quando focado */
+.cpf-cnpj-picker--focused .MuiOutlinedInput-root {
+    background-color: transparent;
+}
+
+.theme-dark .cpf-cnpj-picker--focused .MuiOutlinedInput-root {
+    background-color: transparent;
+}
+
+/* Input quando com erro */
+.cpf-cnpj-picker--error .MuiOutlinedInput-root {
+    background-color: transparent;
+}
+
+.theme-dark .cpf-cnpj-picker--error .MuiOutlinedInput-root {
+    background-color: transparent;
+}
+
+/* Ícone inicial */
+.cpf-cnpj-picker__start-icon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 4px;
+}
+
+.cpf-cnpj-picker__start-icon .MuiSvgIcon-root {
+    font-size: 1.25rem;
+}
+
+.theme-dark .cpf-cnpj-picker__start-icon {
+    color: var(--color-on-secondary);
+}
+
+/* Quando focado, o ícone muda de cor */
+.cpf-cnpj-picker--focused .cpf-cnpj-picker__start-icon {
+    color: var(--color-primary);
+}
+
+.theme-dark .cpf-cnpj-picker--focused .cpf-cnpj-picker__start-icon {
+    color: var(--color-primary);
+}
+
+/* Botão de limpar */
+.cpf-cnpj-picker__clear-btn {
+    animation: fade-in 0.2s ease-out;
+    margin-right: -4px;
+    padding: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.cpf-cnpj-picker__clear-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+.cpf-cnpj-picker__clear-btn:disabled {
+    color: var(--color-on-secondary);
+    opacity: 0.5;
+}
+
+.theme-dark .cpf-cnpj-picker__clear-btn {
+    color: var(--color-on-secondary);
+}
+
+.theme-dark .cpf-cnpj-picker__clear-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+.cpf-cnpj-picker__clear-btn .MuiSvgIcon-root {
+    font-size: 1.125rem;
+}
+
+/* Placeholder animado */
+.cpf-cnpj-picker .MuiInputBase-input::placeholder {
+    color: var(--color-on-secondary);
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.theme-dark .cpf-cnpj-picker .MuiInputBase-input::placeholder {
+    color: var(--color-on-secondary);
+    opacity: 0.6;
+}
+
+.cpf-cnpj-picker--focused .MuiInputBase-input::placeholder {
+    opacity: 0.4;
+}
+
+
+.theme-dark .cpf-cnpj-picker .MuiInputLabel-root {
+    color: var(--color-on-secondary);
+}
+
+.cpf-cnpj-picker--focused .MuiInputLabel-root {
+    color: var(--color-primary);
+}
+
+.theme-dark .cpf-cnpj-picker--focused .MuiInputLabel-root {
+    color: var(--color-primary);
+}
+
+/* Helper text */
+.cpf-cnpj-picker .MuiFormHelperText-root {
+    color: var(--color-on-secondary);
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+.theme-dark .cpf-cnpj-picker .MuiFormHelperText-root {
+    color: var(--color-on-secondary);
+}
+
+.cpf-cnpj-picker--error .MuiFormHelperText-root {
+    color: var(--color-error, #f44336);
+}
+
+.theme-dark .cpf-cnpj-picker--error .MuiFormHelperText-root {
+    color: var(--color-error, #ef5350);
+}
+
+/* Input desabilitado */
+.cpf-cnpj-picker .MuiOutlinedInput-root.Mui-disabled {
+    background-color: var(--color-surface);
+    cursor: not-allowed;
+}
+
+.theme-dark .cpf-cnpj-picker .MuiOutlinedInput-root.Mui-disabled {
+    background-color: var(--color-surface);
+}
+
+.cpf-cnpj-picker .MuiOutlinedInput-root.Mui-disabled .cpf-cnpj-picker__start-icon {
+    opacity: 0.5;
+}
+
+/* Animação de foco */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+/* Transições suaves */

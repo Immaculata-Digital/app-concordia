@@ -1,0 +1,127 @@
+{
+    "versions": [
+        {
+            "version": "1.5.0",
+            "date": "2026-01-27",
+            "summary": "Novo editor de documentos e experiência de Dashboard aprimorada.",
+            "changes": {
+                "Adicionado": [
+                    "Novo editor de documentos com limite visual de páginas A4 para impressões perfeitas.",
+                    "Notificações instantâneas no sistema para novos cadastros de clientes.",
+                    "Sistema de auxílio visual (mensagens de estado vazio) em áreas sem dados.",
+                    "Botão para expandir ou recolher todas as seções do menu lateral de uma só vez.",
+                    "Gráficos do dashboard atualizados com visual moderno e melhor adaptação a telas menores."
+                ],
+                "Alterado": [
+                    "Interface do cabeçalho da barra lateral otimizada para melhor clareza.",
+                    "Cores e contrastes automáticos aplicados para garantir leitura perfeita em qualquer brilho.",
+                    "Ações de blocos no editor agora ficam ocultas até que você precise delas, limpando o visual."
+                ],
+                "Corrigido": [
+                    "Ajustamos a sobreposição de elementos visuais para evitar interferências na navegação.",
+                    "Melhoramos a validação de anexos e documentos antes do envio para garantir que nada se perca.",
+                    "Corrigimos a organização das listas e alinhamentos no editor de texto."
+                ]
+            }
+        },
+        {
+            "version": "1.4.0",
+            "date": "2026-01-12",
+            "summary": "Introdução do Assistente Virtual e personalização completa do painel.",
+            "changes": {
+                "Adicionado": [
+                    "Assistente Inteligente (Chat Bot) para suporte e dúvidas rápidas.",
+                    "Transcrição de voz no chat: transforme sua fala em texto automaticamente.",
+                    "Personalização do Dashboard: agora você pode organizar seus indicadores como preferir.",
+                    "Novo sistema de busca com filtros inteligentes para encontrar o que precisa em segundos."
+                ],
+                "Alterado": [
+                    "Menu lateral totalmente redesenhado para uma navegação mais moderna e intuitiva.",
+                    "Aumentamos a capacidade de envio de arquivos para suportar documentos maiores."
+                ],
+                "Corrigido": [
+                    "Melhoramos o contraste do Modo Escuro em formulários e tabelas.",
+                    "Ajustamos as mensagens de confirmação para evitar perdas acidentais de dados."
+                ]
+            }
+        },
+        {
+            "version": "1.3.0",
+            "date": "2025-12-28",
+            "summary": "Lançamento da Gestão de Contratos e Leads.",
+            "changes": {
+                "Adicionado": [
+                    "Novo painel de Gestão de Leads com organização por cartões de status.",
+                    "Módulo completo de contratos com controle de vigência e renovações.",
+                    "Ferramenta de criação de modelos de contrato personalizados com editor visual.",
+                    "Visualização de auditoria detalhada para acompanhamento de mudanças em cadastros."
+                ],
+                "Alterado": [
+                    "Melhoria na performance do carregamento de grandes listas de contatos.",
+                    "Otimização visual dos botões de ação em dispositivos móveis."
+                ],
+                "Corrigido": [
+                    "Corrigimos problemas ao editar contatos de clientes já cadastrados.",
+                    "Ajustamos falhas visuais que ocorriam em campos de data no Modo Escuro."
+                ]
+            }
+        },
+        {
+            "version": "1.2.0",
+            "date": "2025-12-13",
+            "summary": "Gestão de Clientes e novas configurações de sistema.",
+            "changes": {
+                "Adicionado": [
+                    "Novo módulo de cadastro e gestão detalhada de clientes.",
+                    "Central de parametrização dinâmica para ajustes rápidos de configurações.",
+                    "Componentes de seleção inteligente (SwitchPicker) para preenchimento ágil.",
+                    "Nova visualização de hierarquia e relações entre pessoas."
+                ],
+                "Alterado": [
+                    "Layout das tabelas ajustado para ser mais espaçoso e legível.",
+                    "Reforço nas permissões de acesso para maior controle de segurança por departamento.",
+                    "Padronização dos campos de valores monetários em todo o sistema."
+                ],
+                "Corrigido": [
+                    "Resolvidos erros técnicos que impediam a finalização de alguns builds do projeto.",
+                    "Corrigida a exibição de logs de erro que estavam visíveis indevidamente."
+                ]
+            }
+        },
+        {
+            "version": "1.1.0",
+            "date": "2025-11-28",
+            "summary": "Segurança de dados e novos fluxos de comunicação.",
+            "changes": {
+                "Adicionado": [
+                    "Sistema automatizado de recuperação de senha via e-mail.",
+                    "Novas configurações para disparos de comunicados do sistema.",
+                    "Gestão avançada de usuários com bloqueios granulares de acesso.",
+                    "Novos temas de cores para a visualização de perfis de usuário."
+                ],
+                "Alterado": [
+                    "Processo de autenticação mais rápido para fluxos de trabalho intensos.",
+                    "Unificação dos menus de ação para simplificar o uso diário."
+                ],
+                "Corrigido": [
+                    "Corrigimos a validação de campos obrigatórios que permitiam salvar dados incompletos.",
+                    "Ajustamos o carregamento inicial do sistema para ser mais fluido."
+                ]
+            }
+        },
+        {
+            "version": "1.0.0",
+            "date": "2025-11-13",
+            "summary": "Bem-vindo ao Marshall ERP: Produtividade e Estabilidade.",
+            "changes": {
+                "Adicionado": [
+                    "Lançamento oficial da plataforma Marshall ERP.",
+                    "Suporte completo ao Modo Escuro e Modo Claro.",
+                    "Interface intuitiva baseada em produtividade (TableCard).",
+                    "Sistema de autenticação rápida e segura.",
+                    "Gestão de usuários e permissões de acesso simplificada."
+                ]
+            }
+        }
+    ]
+}

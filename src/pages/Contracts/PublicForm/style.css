@@ -1,0 +1,181 @@
+.public-form {
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 32px 0;
+  position: relative;
+}
+
+.public-form::before {
+  background-attachment: fixed;
+  background-image: url('/images/background-cliente.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: '';
+  height: 100%;
+  left: 0;
+  opacity: 0.25;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+/* Increased Specificity to override MUI default paper styles */
+.public-form .public-form__card.MuiPaper-root {
+  backdrop-filter: blur(20px) saturate(180%);
+
+  /* Glass Effect */
+  background: rgb(30 30 30 / 60%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgb(0 0 0 / 36%);
+  color: #fff;
+  padding: 32px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.public-form .public-form__card.MuiPaper-root:hover {
+  border-color: rgb(219 170 61 / 30%);
+  box-shadow: 0 12px 40px 0 rgb(0 0 0 / 50%);
+}
+
+.public-form__container {
+  position: relative;
+  z-index: 1;
+}
+
+.public-form__logo-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.public-form__logo {
+  height: auto;
+  max-width: 120px;
+}
+
+.public-form__progress-box {
+  margin-bottom: 16px;
+}
+
+.public-form__progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.public-form__progress-text {
+  color: rgb(255 255 255 / 70%);
+  font-size: 0.875rem;
+}
+
+/* Linear Progress Overrides */
+.public-form .public-form__linear-progress.MuiLinearProgress-root {
+  background-color: rgb(219 170 61 / 20%);
+  border-radius: 3px;
+  height: 6px;
+}
+
+.public-form .public-form__linear-progress .MuiLinearProgress-bar {
+  background-color: #dbaa3d;
+}
+
+.public-form__content {
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.public-form .public-form__title.MuiTypography-root {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.public-form__actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+}
+
+.public-form__actions--end {
+  justify-content: flex-end;
+}
+
+/* Button Overrides */
+.public-form .public-form__btn.MuiButton-root {
+  font-weight: 600;
+  min-width: 100px;
+  text-transform: none;
+}
+
+.public-form .public-form__btn--back.MuiButton-root {
+  border-color: rgb(255 255 255 / 30%);
+  color: #fff;
+}
+
+.public-form .public-form__btn--back.MuiButton-root:hover {
+  background-color: rgb(255 255 255 / 5%);
+  border-color: #fff;
+}
+
+.public-form .public-form__btn--next.MuiButton-root,
+.public-form .public-form__btn--save.MuiButton-root {
+  background-color: #dbaa3d;
+  color: #1a1a1a;
+}
+
+.public-form .public-form__btn--next.MuiButton-root:hover,
+.public-form .public-form__btn--save.MuiButton-root:hover {
+  background-color: #b5831f;
+}
+
+/* Thank You Screen */
+.public-form .public-form__success-icon.MuiSvgIcon-root {
+  color: #4caf50;
+  font-size: 80px;
+  margin-bottom: 16px;
+}
+
+.public-form .public-form__title-success.MuiTypography-root {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.public-form .public-form__text-success.MuiTypography-root {
+  color: rgb(255 255 255 / 90%);
+  line-height: 1.6;
+}
+
+.public-form .public-form__text-muted.MuiTypography-root {
+  color: rgb(255 255 255 / 50%);
+  margin-top: 16px;
+}
+
+/* Fix success icon color override */
+.public-form .MuiSvgIcon-root.MuiSvgIcon-colorSuccess {
+  color: #4caf50;
+}
+
+/* Responsive */
+@media (width <=600px) {
+  .public-form {
+    padding: 16px;
+  }
+
+  .public-form .public-form__card.MuiPaper-root {
+    padding: 24px;
+  }
+}

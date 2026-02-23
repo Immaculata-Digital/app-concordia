@@ -1,0 +1,29 @@
+.html-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.html-editor__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.html-editor__label {
+  color: rgb(0 0 0 / 87%);
+  font-weight: 500;
+}
+
+.html-editor__required {
+  color: #d32f2f;
+}
+
+.html-editor__format-btn {
+  user-select: none;
+}
+
+.html-editor__container {
+  position: relative;
+}
+

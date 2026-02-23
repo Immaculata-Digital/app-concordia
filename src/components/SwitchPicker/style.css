@@ -1,0 +1,44 @@
+.switch-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.switch-picker__label {
+  margin: 0;
+  margin-bottom: 4px;
+  user-select: none;
+}
+
+.switch-picker__switch-container {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.switch-picker__label--required .switch-picker__required {
+  color: var(--mui-palette-error-main, #d32f2f);
+}
+
+.switch-picker__label--error {
+  color: var(--mui-palette-error-main, #d32f2f);
+}
+
+.switch-picker__switch {
+  flex-shrink: 0;
+}
+
+.switch-picker__switch--error .MuiSwitch-switchBase {
+  color: var(--mui-palette-error-main, #d32f2f);
+}
+
+.switch-picker__helper {
+  color: var(--mui-palette-text-secondary, rgb(0 0 0 / 60%));
+  display: block;
+  margin-top: 4px;
+}
+
+.switch-picker__helper--error {
+  color: var(--mui-palette-error-main, #d32f2f);
+}

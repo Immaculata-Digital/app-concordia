@@ -1,0 +1,65 @@
+.exemplo-page {
+  align-items: center;
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem;
+}
+
+.exemplo-card {
+  border-radius: 24px;
+  max-width: 720px;
+  padding: 3rem;
+  width: 100%;
+}
+
+.exemplo-datepicker {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.exemplo-mailpicker {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.exemplo-passwordpicker {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.exemplo-textpicker {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.exemplo-selectpicker {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.exemplo-multiselectpicker {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.exemplo-phonepicker {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.exemplo-actions {
+  margin-top: 2rem;
+}
+
+@media (width <= 768px) {
+  .exemplo-page {
+    padding: 1.5rem;
+  }
+
+  .exemplo-card {
+    padding: 2rem;
+  }
+}
+

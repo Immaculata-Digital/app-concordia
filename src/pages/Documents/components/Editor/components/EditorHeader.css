@@ -1,0 +1,226 @@
+/* EditorHeader BEM Styles */
+
+.MuiAppBar-root.editor-header {
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border-lighter);
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+.MuiAppBar-root.editor-header--fullscreen {
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2000;
+}
+
+.editor-header .MuiToolbar-root.editor-header__toolbar {
+    justify-content: space-between;
+    min-height: 64px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+/* Left Section: Branding & Title */
+.editor-header__left {
+    flex: 1;
+}
+
+.editor-header .MuiIconButton-root.editor-header__back-btn {
+    background-color: rgb(0 0 0 / 3%);
+    color: var(--color-text);
+}
+
+.editor-header .MuiIconButton-root.editor-header__back-btn:hover {
+    background-color: rgb(0 0 0 / 6%);
+}
+
+.editor-header .MuiDivider-root.editor-header__divider--v {
+    align-self: center;
+    height: 24px;
+    opacity: 0.5;
+}
+
+.editor-header__title {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    display: flex;
+    flex: 1;
+    max-width: 450px;
+    padding: 2px 8px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.editor-header__title:hover {
+    background-color: rgb(var(--color-primary-rgb), 0.03);
+    border-color: var(--color-border-lighter);
+}
+
+.editor-header__title:focus-within {
+    background-color: rgb(var(--color-primary-rgb), 0.05);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgb(var(--color-primary-rgb), 0.1);
+}
+
+.editor-header__title-input {
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    cursor: text;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    overflow: hidden;
+    padding: 0 24px 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+/* Center Section: Island Toolbar */
+.editor-header__island {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 6%);
+    height: 42px;
+    padding: 4px 12px;
+}
+
+.editor-header__island--is-mobile {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.editor-header .MuiIconButton-root.editor-header__btn {
+    color: var(--color-text);
+}
+
+.editor-header .MuiIconButton-root.editor-header__btn--is-disabled {
+    opacity: 0.3;
+}
+
+.editor-header .MuiDivider-root.editor-header__island-divider {
+    align-self: center;
+    background-color: var(--color-border);
+    height: 16px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.editor-header .MuiIconButton-root.editor-header__btn--is-active {
+    color: var(--color-primary);
+}
+
+/* Alignment Controls */
+.editor-header__align-box {
+    align-items: center;
+    display: flex;
+    margin-left: 4px;
+    padding-right: 4px;
+}
+
+/* Right Section: Actions */
+.editor-header__actions {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.editor-header .MuiButton-root.editor-header__layout-btn {
+    background-color: transparent;
+    border-radius: 8px;
+    color: var(--color-text);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 12px;
+    text-transform: none;
+}
+
+.editor-header .MuiButton-root.editor-header__layout-btn--active {
+    background-color: rgb(var(--color-primary-rgb), 0.05);
+    color: var(--color-primary);
+}
+
+.editor-header .MuiButton-root.editor-header__layout-btn:hover {
+    background-color: rgb(0 0 0 / 4%);
+}
+
+.editor-header .MuiButton-root.editor-header__layout-btn--active:hover {
+    background-color: rgb(var(--color-primary-rgb), 0.1);
+}
+
+.editor-header .MuiIconButton-root.editor-header__icon-btn {
+    color: var(--color-text);
+}
+
+.editor-header .MuiButton-root.editor-header__save-btn {
+    background-color: var(--color-primary);
+    border-radius: 8px;
+    box-shadow: none;
+    color: white;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.editor-header .MuiButton-root.editor-header__save-btn:hover {
+    background-color: var(--color-primary-dark);
+    box-shadow: 0 4px 12px rgb(var(--color-primary-rgb), 0.3);
+}
+
+/* Layout Elements */
+.editor-header__group {
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    width: auto;
+}
+
+.editor-header .MuiDivider-root.editor-header__divider--horizontal {
+    margin: 4px 0;
+    opacity: 0.5;
+}
+
+/* Layout Popover */
+.MuiPaper-root.layout-popover {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 12%);
+    margin-top: 12px;
+    min-width: 220px;
+    padding: 8px;
+}
+
+.layout-popover__title {
+    color: var(--color-on-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+}
+
+.MuiPaper-root.layout-popover .MuiButton-root.layout-popover__btn {
+    border-radius: 6px;
+    color: var(--color-text);
+    font-size: 13px;
+    justify-content: space-between;
+    padding: 8px 12px;
+    text-transform: none;
+}
+
+.MuiPaper-root.layout-popover .MuiButton-root.layout-popover__btn--selected {
+    background-color: rgb(var(--color-primary-rgb), 0.08);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.MuiPaper-root.layout-popover .MuiButton-root.layout-popover__btn:hover {
+    background-color: rgb(0 0 0 / 4%);
+}
+
+.theme-dark .MuiPaper-root.layout-popover .MuiButton-root.layout-popover__btn:hover {
+    background-color: rgb(255 255 255 / 4%);
+}

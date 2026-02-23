@@ -1,0 +1,13 @@
+.contract-dashboard-page {
+    padding: 0;
+    width: 100%;
+}
+
+.contract-dashboard-page__loading {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    min-height: 400px;
+}

@@ -1,0 +1,13 @@
+.modalidades-rentabilidade-page {
+  padding: 0;
+  width: 100%;
+}
+
+.modalidades-rentabilidade-page__loading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  padding: 4rem;
+}

@@ -1,0 +1,56 @@
+/* CEPPicker Styles */
+.cep-picker-icon {
+    color: var(--color-surface);
+}
+
+.theme-dark .cep-picker-icon {
+    color: var(--color-on-secondary);
+}
+
+/* Valid Icon - Specificity Fix */
+.cep-picker__valid-icon {
+    color: var(--color-success, #4caf50);
+}
+
+.theme-dark .cep-picker__valid-icon {
+    color: var(--color-success, #66bb6a);
+}
+
+/* Error Icon */
+.cep-picker__error-icon {
+    color: var(--color-error, #f44336);
+}
+
+/* Clear Button */
+.cep-picker__clear-btn {
+    color: var(--color-on-secondary);
+    margin-left: 8px;
+}
+
+.cep-picker__clear-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+.theme-dark .cep-picker__clear-btn {
+    color: var(--color-on-secondary);
+}
+
+.theme-dark .cep-picker__clear-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-text);
+}
+
+/* Loading Indicator */
+.cep-picker__loading {
+    color: var(--color-primary);
+}
+
+/* Ensure specificity for icons inside InputAdornment */
+.MuiInputAdornment-root .cep-picker__valid-icon {
+    color: var(--color-success, #4caf50);
+}
+
+.theme-dark .MuiInputAdornment-root .cep-picker__valid-icon {
+    color: var(--color-success, #66bb6a);
+}

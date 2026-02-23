@@ -1,0 +1,21 @@
+.access-groups-page {
+  background-color: var(--color-background);
+  padding: 0;
+  width: 100%;
+}
+
+.access-groups-page__loading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  min-height: 320px;
+}
+
+@media (width <= 768px) {
+  .access-groups-page {
+    padding: 0;
+  }
+}
+

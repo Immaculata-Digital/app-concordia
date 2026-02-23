@@ -1,0 +1,53 @@
+.code-editor-input .MuiInputBase-root {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+
+    /* Light Text */
+    border-radius: 8px;
+
+    /* Dark Editor Background */
+    color: #d4d4d4;
+    font-family: 'Fira Code', 'Roboto Mono', monospace;
+    font-size: 13px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.code-editor-input .MuiInputBase-root:hover {
+    border-color: #dbaa3d;
+
+    /* Gold highlight on hover */
+}
+
+.code-editor-input .MuiInputBase-root.Mui-focused {
+    border-color: #dbaa3d;
+    box-shadow: 0 0 0 2px rgb(219 170 61 / 20%);
+
+    /* Gold glow */
+}
+
+.code-editor-input .MuiInputBase-root.Mui-disabled {
+    color: #d4d4d4;
+    opacity: 1;
+    -webkit-text-fill-color: #d4d4d4;
+
+    /* Webkit override for disabled input color */
+}
+
+.code-editor-input .MuiInputBase-input {
+    line-height: 1.5;
+    padding: 12px;
+}
+
+.code-editor-input .MuiInputBase-input.Mui-disabled {
+    color: #d4d4d4;
+    -webkit-text-fill-color: #d4d4d4;
+}
+
+.code-editor-input label {
+    color: #aaa;
+    font-weight: 500;
+}
+
+.code-editor-input label.Mui-focused {
+    color: #dbaa3d;
+}

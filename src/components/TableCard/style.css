@@ -1,0 +1,1867 @@
+.table-card {
+  animation: fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  border-radius: 12px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 1.5rem 2rem;
+  width: 100%;
+
+  --color-on-primary: #000;
+}
+
+@media (width >=901px) {
+  .table-card {
+    min-height: 75vh;
+
+    /* Assertive anchor for desktop viewport */
+  }
+}
+
+.theme-dark .table-card {
+  --color-on-primary: #fff;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.table-card__toolbar {
+  width: 100%;
+}
+
+.theme-dark .table-card__toolbar .MuiTypography-root {
+  color: var(--color-text);
+}
+
+/* Toggle de visualização */
+.table-card__view-toggle {
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 10px;
+  display: flex;
+  padding: 3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-dark .table-card__view-toggle {
+  background: rgb(255 255 255 / 3%);
+  border-color: rgb(255 255 255 / 10%);
+}
+
+.table-card__view-toggle .MuiIconButton-root {
+  border-radius: 8px;
+  color: var(--color-text);
+  opacity: 0.6;
+  padding: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-dark .table-card__view-toggle .MuiIconButton-root {
+  color: #fff;
+}
+
+.table-card__view-toggle .MuiIconButton-root:not(.table-card__view-toggle--active):hover {
+  background: var(--color-hover);
+  opacity: 1;
+}
+
+.table-card .table-card__view-toggle .MuiIconButton-root.table-card__view-toggle--active,
+.theme-dark .table-card .table-card__view-toggle .MuiIconButton-root.table-card__view-toggle--active {
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgb(var(--color-primary-rgb), 0.3);
+  color: var(--color-on-primary-contrast);
+  opacity: 1;
+}
+
+.table-card .table-card__view-toggle .MuiIconButton-root.table-card__view-toggle--active:hover,
+.theme-dark .table-card .table-card__view-toggle .MuiIconButton-root.table-card__view-toggle--active:hover {
+  background-color: var(--color-primary-dark);
+  box-shadow: 0 4px 12px rgb(var(--color-primary-rgb), 0.4);
+  color: var(--color-on-primary-contrast);
+}
+
+.table-card .table-card__view-toggle .table-card__view-toggle--active .MuiSvgIcon-root,
+.table-card .table-card__view-toggle .table-card__view-toggle--active:hover .MuiSvgIcon-root,
+.theme-dark .table-card .table-card__view-toggle .table-card__view-toggle--active .MuiSvgIcon-root,
+.theme-dark .table-card .table-card__view-toggle .table-card__view-toggle--active:hover .MuiSvgIcon-root {
+  color: var(--color-on-primary-contrast);
+}
+
+/* Botão de Densidade/Colunas Premium */
+.table-card .table-card__density-btn {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 10px;
+  color: var(--color-text);
+  padding: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-dark .table-card .table-card__density-btn {
+  background: rgb(255 255 255 / 4%);
+  border-color: rgb(255 255 255 / 10%);
+  color: #fff;
+}
+
+.table-card .table-card__density-btn:hover {
+  background: var(--color-hover);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.table-card .table-card__density-btn--active {
+  background: var(--color-primary-faint);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-faint);
+  color: var(--color-primary);
+}
+
+/* Popover de Densidade Premium */
+.table-card .table-card__density-popover .MuiPaper-root {
+  backdrop-filter: blur(10px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-lighter);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 15%);
+}
+
+.theme-dark .table-card .table-card__density-popover .MuiPaper-root {
+  background: rgb(30 30 35 / 95%);
+  background-image: linear-gradient(rgb(255 255 255 / 3%), rgb(255 255 255 / 3%));
+  border-color: rgb(255 255 255 / 10%);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 50%);
+}
+
+.table-card__density-popover-header {
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  padding: 4px 8px 8px;
+}
+
+.table-card .table-card__density-popover .table-card__density-toggle {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.MuiPopover-root.table-card__density-popover .MuiToggleButtonGroup-root .MuiToggleButton-root {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: row;
+  font-weight: 500;
+  justify-content: flex-start;
+  margin-bottom: 4px;
+  padding: 10px 16px;
+  text-align: left;
+  text-transform: none;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.MuiPopover-root.table-card__density-popover .MuiToggleButtonGroup-root .MuiToggleButton-root .MuiToggleButton-label {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.MuiPopover-root.table-card__density-popover .MuiToggleButtonGroup-root .MuiToggleButton-root:hover {
+  background-color: var(--color-hover);
+  color: var(--color-primary);
+}
+
+.MuiPopover-root.table-card__density-popover .MuiToggleButtonGroup-root .MuiToggleButton-root.Mui-selected {
+  background-color: var(--color-primary-faint);
+  border-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.table-card .table-card__density-popover .MuiToggleButton-root.Mui-selected .MuiSvgIcon-root {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.MuiPopover-root.table-card__density-popover .MuiSvgIcon-root:not(.table-card__width-icon) {
+  margin-right: 16px;
+  min-width: 24px;
+  transition: transform 0.2s ease;
+}
+
+.table-card__density-popover .table-card__no-margin-icon.MuiSvgIcon-root {
+  margin-right: 0;
+}
+
+/* Dark Mode Specific for Density Popover */
+.theme-dark .MuiPopover-root.table-card__density-popover .MuiToggleButton-root {
+  color: #fff;
+}
+
+.theme-dark .MuiPopover-root.table-card__density-popover .MuiToggleButton-root .MuiSvgIcon-root {
+  color: #fff;
+}
+
+.theme-dark .MuiPopover-root.table-card__density-popover .MuiToggleButton-root.Mui-selected {
+  background: var(--color-primary-faint);
+  color: var(--color-primary);
+}
+
+.theme-dark .MuiPopover-root.table-card__density-popover .MuiToggleButton-root.Mui-selected .MuiSvgIcon-root {
+  color: var(--color-primary);
+}
+
+.theme-dark .table-card__density-popover-header {
+  color: #fff;
+  opacity: 0.8;
+}
+
+
+.table-card__density-popover .table-card__width-control-icon {
+  margin-right: 0;
+}
+
+.table-card__density-popover .table-card__width-control-value {
+  padding-right: 8px;
+}
+
+/* Gerenciamento de Colunas Premium */
+.table-card .table-card__column-item {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  display: flex;
+  gap: 8px;
+  padding: 6px 12px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.table-card .table-card__column-item:hover {
+  background: var(--color-hover);
+  border-color: var(--color-border-lighter);
+}
+
+.table-card .table-card__column-item--dragging {
+  background: var(--color-primary-faint);
+  border: 1px dashed var(--color-primary);
+  cursor: grabbing;
+  opacity: 0.5;
+}
+
+.table-card .table-card__column-item--drag-over {
+  background: var(--color-hover);
+  border-top: 2px solid var(--color-primary);
+}
+
+.theme-dark .table-card .table-card__column-item:hover {
+  background: rgb(255 255 255 / 5%);
+  border-color: rgb(255 255 255 / 10%);
+}
+
+/* Mobile reorder arrows alignment and icon sizing */
+.MuiPopover-root.table-card__density-popover .table-card__column-item .MuiIconButton-root .MuiSvgIcon-root {
+  display: block;
+  font-size: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* Width icon color */
+.table-card .table-card__column-item .table-card__width-icon {
+  color: var(--color-on-secondary);
+  opacity: 0.6;
+}
+
+.table-card .table-card__column-item .MuiTypography-root {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.table-card .table-card__column-item .MuiIconButton-root {
+  color: var(--color-on-secondary);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.table-card .table-card__column-item .MuiIconButton-root:hover:not(.Mui-disabled) {
+  background: var(--color-primary-faint);
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.table-card .table-card__column-item .MuiCheckbox-root {
+  color: var(--color-on-secondary);
+  opacity: 0.6;
+}
+
+.table-card .table-card__column-item .MuiCheckbox-root.Mui-checked,
+.table-card .table-card__column-item .MuiCheckbox-root.Mui-checked .MuiSvgIcon-root {
+  color: var(--color-on-secondary);
+  opacity: 0.9;
+}
+
+/* Dark Mode Overrides (Subtle secondary tones) */
+.theme-dark .MuiPopover-root.table-card__density-popover .table-card__column-item .MuiCheckbox-root,
+.theme-dark .MuiPopover-root.table-card__density-popover .table-card__column-item .MuiCheckbox-root .MuiSvgIcon-root,
+.theme-dark .MuiPopover-root.table-card__density-popover .table-card__column-item .MuiCheckbox-root.Mui-checked,
+.theme-dark .MuiPopover-root.table-card__density-popover .table-card__column-item .MuiCheckbox-root.Mui-checked .MuiSvgIcon-root {
+  color: var(--color-on-secondary);
+}
+
+.theme-dark .MuiPopover-root.table-card__density-popover .table-card__column-item .table-card__width-icon {
+  color: var(--color-on-secondary);
+  opacity: 0.8;
+}
+
+/* Mobile reorder arrows alignment */
+.MuiPopover-root.table-card__density-popover .table-card__column-item .MuiIconButton-root {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Variáveis de Densidade */
+.table-card--density-ultra-thin {
+  --table-padding-y: 0.25rem;
+  --table-padding-x: 0.5rem;
+  --card-padding: 0.4rem 0.75rem;
+}
+
+.table-card--density-thin {
+  --table-padding-y: 0.5rem;
+  --table-padding-x: 0.75rem;
+  --card-padding: 0.6rem 0.875rem;
+}
+
+.table-card--density-medium {
+  --table-padding-y: 0.75rem;
+  --table-padding-x: 1rem;
+  --card-padding: 0.875rem 1rem;
+}
+
+.table-card--density-high {
+  --table-padding-y: 1rem;
+  --table-padding-x: 1.25rem;
+  --card-padding: 1.25rem;
+}
+
+.table-card--density-ultra-high {
+  --table-padding-y: 1.5rem;
+  --table-padding-x: 1.5rem;
+  --card-padding: 1.75rem;
+}
+
+/* Aplicação da Densidade - Card View */
+.table-card--density-ultra-thin .table-card__gmail-card-preview,
+.table-card--density-thin .table-card__gmail-card-preview {
+  display: none;
+}
+
+.table-card--density-ultra-thin .table-card__gmail-card-content,
+.table-card--density-thin .table-card__gmail-card-content {
+  align-items: center;
+}
+
+.table-card--density-ultra-thin .table-card__gmail-title,
+.table-card--density-thin .table-card__gmail-title,
+.table-card--density-ultra-thin .table-card__gmail-preview-item,
+.table-card--density-thin .table-card__gmail-preview-item {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-card--density-ultra-thin .MuiTable-root,
+.table-card--density-thin .MuiTable-root {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Aplicação da Densidade - Table View (Fina e Ultra Fina) */
+.table-card--density-ultra-thin .MuiTableCell-root:not([padding="checkbox"], [align="right"]),
+.table-card--density-thin .MuiTableCell-root:not([padding="checkbox"], [align="right"]) {
+  overflow: hidden;
+  padding-bottom: var(--table-padding-y);
+  padding-top: var(--table-padding-y);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Células de controle (checkbox/ações) não devem truncar para evitar clipping nos ícones */
+.table-card .MuiTableCell-paddingCheckbox,
+.table-card .MuiTableCell-alignRight,
+.table-card .table-card__checkbox {
+  overflow: visible;
+  padding-bottom: var(--table-padding-y);
+  padding-top: var(--table-padding-y);
+}
+
+.table-card .MuiTableCell-paddingCheckbox .MuiButtonBase-root {
+  overflow: visible;
+}
+
+/* Fixar largura das colunas de Checkbox e Ações para evitar desalinhamento */
+.table-card--density-ultra-thin .MuiTableCell-paddingCheckbox,
+.table-card--density-thin .MuiTableCell-paddingCheckbox {
+  width: 64px;
+
+  /* Ajustado para acomodar o novo padding esquerdo */
+}
+
+.table-card--density-ultra-thin .MuiTableCell-alignRight,
+.table-card--density-thin .MuiTableCell-alignRight {
+  padding-right: 24px;
+  text-align: right;
+  width: 88px;
+}
+
+/* Truncamento do conteúdo interno preservando o alinhamento das colunas */
+.table-card--density-ultra-thin .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox, .MuiTableCell-alignRight)>*:not(.MuiChip-root, .status-pill),
+.table-card--density-thin .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox, .MuiTableCell-alignRight)>*:not(.MuiChip-root, .status-pill) {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+/* Manter chips em linha única dentro da célula truncada */
+.table-card--density-ultra-thin .MuiTableCell-root div,
+.table-card--density-thin .MuiTableCell-root div {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  vertical-align: middle;
+}
+
+/* Estilos de quebra de linha com limite de 3 linhas para densidade média */
+.table-card--density-medium .table-card__gmail-title,
+.table-card--density-medium .table-card__gmail-preview-item,
+.table-card--density-medium .table-card__gmail-preview-item>*:not(.MuiChip-root, .status-pill),
+.table-card--density-medium .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox, .MuiTableCell-alignRight)>*:not(.MuiChip-root, .status-pill) {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.table-card--density-medium .MuiTableCell-root {
+  white-space: normal;
+}
+
+/* Estilos de quebra de linha com limite de 10 linhas para densidade alta */
+.table-card--density-high .table-card__gmail-title,
+.table-card--density-high .table-card__gmail-preview-item,
+.table-card--density-high .table-card__gmail-preview-item>*:not(.MuiChip-root, .status-pill),
+.table-card--density-high .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox, .MuiTableCell-alignRight)>*:not(.MuiChip-root, .status-pill) {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  line-clamp: 10;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.table-card--density-high .MuiTableCell-root {
+  white-space: normal;
+}
+
+/* Garantir espaçamento entre chips/tags para evitar sobreposição vertical e horizontal */
+.table-card .MuiTableCell-root .MuiChip-root,
+.table-card .table-card__gmail-card-preview .MuiChip-root {
+  margin: 2px;
+  width: fit-content;
+}
+
+.table-card--density-ultra-high .MuiTableCell-root>.MuiBox-root,
+.table-card--density-ultra-high .table-card__gmail-card-preview .MuiBox-root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Densidade Ultra Alta - Sem limite de linhas */
+.table-card--density-ultra-high .table-card__gmail-title,
+.table-card--density-ultra-high .table-card__gmail-preview-item,
+.table-card--density-ultra-high .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox, .MuiTableCell-alignRight)>*:not(.MuiChip-root, .status-pill) {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.table-card--density-ultra-high .MuiTableCell-root {
+  white-space: normal;
+}
+
+/* Sobreescrita de paddings */
+
+
+.table-card__table-wrapper .MuiTableCell-root:not(.MuiTableCell-paddingCheckbox) {
+  padding: var(--table-padding-y, 0.75rem) var(--table-padding-x, 1rem);
+}
+
+/* Padding específico para checkbox para garantir alinhamento e evitar clipping */
+.table-card__table-wrapper .MuiTableCell-paddingCheckbox {
+  padding: var(--table-padding-y, 0.75rem) 8px var(--table-padding-y, 0.75rem) 24px;
+  width: 64px;
+
+  /* Ajustado para acomodar o novo padding esquerdo */
+}
+
+.theme-dark .table-card .table-card__view-toggle .MuiIconButton-root.table-card__view-toggle--active {
+  background: var(--color-primary);
+}
+
+.theme-dark .table-card .table-card__view-toggle .MuiIconButton-root.table-card__view-toggle--active .MuiSvgIcon-root {
+  color: var(--color-on-primary-contrast);
+}
+
+.table-card__list-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 318px);
+  overflow: auto;
+  width: 100%;
+
+  /* Fixed height consistent with table */
+}
+
+/* Lista de cards */
+.table-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Card estilo Gmail */
+.table-card__gmail-card {
+  animation: slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 0.03s);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 4%);
+  cursor: pointer;
+  opacity: 0;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-card__gmail-card:hover {
+  border-color: var(--color-border);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.table-card__gmail-card--selected {
+  background: var(--color-hover);
+  border-color: var(--color-primary);
+}
+
+.theme-dark .table-card__gmail-card {
+  background: var(--color-surface);
+  background-image: linear-gradient(rgb(255 255 255 / 5%), rgb(255 255 255 / 5%));
+  border-color: var(--color-border-lighter);
+}
+
+.theme-dark .table-card__gmail-card:hover {
+  border-color: var(--color-border-light);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 40%);
+}
+
+.theme-dark .table-card__gmail-card--selected {
+  background: rgb(var(--color-primary-rgb), 0.1);
+  border-color: var(--color-primary);
+}
+
+/* Conteúdo do card */
+.table-card__gmail-card-content {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.75rem;
+  min-height: auto;
+  padding: var(--card-padding, 1rem);
+}
+
+@media (width <=600px) {
+  .table-card__gmail-card-content {
+    gap: 0.5rem;
+    min-height: 64px;
+    padding: 0.875rem;
+  }
+}
+
+/* Checkbox */
+.table-card__checkbox.MuiCheckbox-root {
+  color: var(--color-on-secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+  overflow: visible;
+  padding: 8px;
+}
+
+.theme-dark .table-card__checkbox.MuiCheckbox-root {
+  color: rgb(255 255 255 / 70%);
+}
+
+.table-card__checkbox.MuiCheckbox-root.Mui-checked,
+.table-card__checkbox.MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: var(--color-primary);
+}
+
+.theme-dark .table-card__checkbox.MuiCheckbox-root.Mui-checked,
+.theme-dark .table-card__checkbox.MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: var(--color-primary);
+}
+
+/* Forçar cor nas SVGs customizadas */
+.table-card__checkbox.MuiCheckbox-root svg {
+  display: block;
+  fill: none;
+}
+
+.table-card .table-card__checkbox.MuiCheckbox-root.Mui-checked svg path[fill="currentColor"],
+.table-card .table-card__checkbox.MuiCheckbox-root.MuiCheckbox-indeterminate svg path[fill="currentColor"] {
+  fill: currentcolor;
+}
+
+/* Área principal do card */
+.table-card__gmail-card-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Cabeçalho do card (título + botão de ações) */
+.table-card__gmail-card-header {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  min-height: 24px;
+  padding-top: 5px;
+  width: 100%;
+}
+
+/* Título do card */
+.table-card__gmail-title {
+  -webkit-box-orient: vertical;
+  color: var(--color-text);
+  display: -webkit-box;
+  flex: 1;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  line-height: 1.4;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theme-dark .table-card__gmail-title {
+  color: var(--color-text);
+}
+
+/* Preview do card (subtítulos) */
+.table-card__gmail-card-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.table-card__gmail-preview-item {
+  color: var(--color-on-secondary);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-dark .table-card__gmail-preview-item {
+  color: var(--color-on-secondary);
+}
+
+.table-card__gmail-preview-label {
+  color: var(--color-on-secondary);
+}
+
+.theme-dark .table-card__gmail-preview-label {
+  color: var(--color-on-secondary);
+}
+
+/* Botão de ações */
+.table-card__gmail-actions {
+  align-self: center;
+  flex-shrink: 0;
+  margin: 0;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.table-card__gmail-card:hover .table-card__gmail-actions {
+  opacity: 1;
+}
+
+.theme-dark .table-card__gmail-actions .MuiIconButton-root {
+  color: var(--color-text);
+}
+
+.theme-dark .table-card__gmail-actions .MuiIconButton-root:hover {
+  background: var(--color-hover-strong);
+  color: var(--color-primary);
+}
+
+/* Estado vazio */
+.table-card__empty-state {
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.theme-dark .table-card__empty-state .MuiTypography-root {
+  color: var(--color-on-secondary);
+}
+
+.theme-dark .table-card__empty-text {
+  color: var(--color-text);
+}
+
+.table-card__no-access-message {
+  color: var(--color-on-secondary);
+}
+
+.theme-dark .table-card__no-access-message {
+  color: #fff;
+}
+
+/* Status pills */
+.status-pill {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  padding: 0.2rem 0.65rem;
+  text-transform: capitalize;
+}
+
+.status-pill--ativo {
+  background: rgb(52 199 89 / 15%);
+  color: #34c759;
+}
+
+.status-pill--inativo,
+.status-pill--banido {
+  background: rgb(255 69 58 / 15%);
+  color: #ff3b30;
+}
+
+.theme-dark .status-pill--ativo {
+  background: rgb(52 199 89 / 25%);
+  color: #4ade80;
+}
+
+.theme-dark .status-pill--inativo,
+.theme-dark .status-pill--banido {
+  background: rgb(255 69 58 / 25%);
+  color: #ff6b6b;
+}
+
+/* Container da tabela */
+.table-card__table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.table-card__table-wrapper {
+  /* Permite scroll horizontal */
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 5%);
+  height: calc(100vh - 318px);
+
+  /* Garante o clipping do background do header */
+  overflow: auto;
+
+  /* Fixed height based on viewport minus headers/footer */
+  position: relative;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.theme-dark .table-card__table-wrapper {
+  background: var(--color-surface);
+  background-image: linear-gradient(rgb(255 255 255 / 5%), rgb(255 255 255 / 5%));
+  border-color: var(--color-border-lighter);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 40%);
+}
+
+/* Linhas da tabela */
+.table-card__row {
+  animation: slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--index, 0) * 0.03s);
+  cursor: pointer;
+  opacity: 0;
+  transition: background-color 0.2s ease, opacity 0.3s ease;
+}
+
+.table-card__row:hover {
+  background-color: var(--color-hover);
+}
+
+.table-card__row--selected {
+  background-color: var(--color-hover);
+}
+
+.theme-dark .table-card__row {
+  background: var(--color-surface);
+}
+
+.theme-dark .table-card__row:hover {
+  background-color: var(--color-hover);
+}
+
+.theme-dark .table-card__row--selected {
+  background-color: var(--color-hover);
+}
+
+/* Células da tabela */
+.table-card__table-wrapper .MuiTableCell-root {
+  border-bottom: 1px solid var(--color-border-lighter);
+  color: var(--color-text);
+}
+
+.theme-dark .table-card__table-wrapper .MuiTable-root {
+  background: var(--color-surface);
+}
+
+
+
+.table-card__table-wrapper::-webkit-scrollbar,
+.table-card__list-container::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.table-card__table-wrapper::-webkit-scrollbar-track,
+.table-card__list-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-card__table-wrapper::-webkit-scrollbar-thumb,
+.table-card__list-container::-webkit-scrollbar-thumb {
+  background: var(--color-border-lighter);
+  border-radius: 10px;
+}
+
+.table-card__table-wrapper::-webkit-scrollbar-thumb:hover,
+.table-card__list-container::-webkit-scrollbar-thumb:hover {
+  background: var(--color-on-secondary);
+  opacity: 0.5;
+}
+
+/* Forçar o arredondamento nas quinas do header para dar match com o container */
+.table-card__table-wrapper .MuiTableHead-root .MuiTableRow-root:first-of-type .MuiTableCell-root:first-of-type {
+  border-top-left-radius: 11px;
+}
+
+.table-card__table-wrapper .MuiTableHead-root .MuiTableRow-root:first-of-type .MuiTableCell-root:last-of-type {
+  border-top-right-radius: 11px;
+}
+
+
+
+.theme-dark .table-card__table-wrapper .MuiTableBody-root .MuiTableCell-root {
+  color: var(--color-text);
+}
+
+.theme-dark .table-card__table-wrapper .MuiTableRow-root {
+  background: var(--color-surface);
+}
+
+.theme-dark .table-card__table-wrapper .MuiTableRow-root:hover {
+  background: var(--color-hover);
+}
+
+.theme-dark .MuiTableHead-root .MuiCheckbox-root,
+.theme-dark .MuiTableBody-root .MuiCheckbox-root,
+.theme-dark .table-card__top-actions .MuiCheckbox-root {
+  color: rgb(255 255 255 / 70%);
+}
+
+.theme-dark .MuiCheckbox-root.Mui-checked,
+.theme-dark .MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: var(--color-primary);
+}
+
+.theme-dark .table-card__table-wrapper .MuiIconButton-root {
+  color: var(--color-text);
+}
+
+.theme-dark .table-card__table-wrapper .MuiIconButton-root:hover {
+  background: var(--color-hover);
+  color: var(--color-primary);
+}
+
+/* Toolbar Premium */
+
+/* Barra de ações no topo */
+.table-card__top-actions {
+  backdrop-filter: blur(12px);
+  background: rgb(var(--color-surface), 0.8);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 10%);
+  left: 0;
+  padding: 1rem 2rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1300;
+}
+
+.table-card__top-actions .MuiIconButton-root.Mui-disabled {
+  color: rgb(0 0 0 / 26%);
+}
+
+.table-card .table-card__top-actions .MuiIconButton-root.Mui-disabled .MuiSvgIcon-root {
+  color: rgb(0 0 0 / 26%);
+}
+
+.table-card__top-actions .MuiCheckbox-root:hover {
+  background-color: var(--color-hover);
+}
+
+.theme-dark .table-card__top-actions {
+  background-color: var(--color-surface);
+  border-bottom-color: var(--color-border);
+}
+
+.theme-dark .table-card__top-actions .MuiTypography-root {
+  color: var(--color-text);
+}
+
+.theme-dark .table-card__top-actions .MuiIconButton-root.Mui-disabled {
+  color: rgb(255 255 255 / 30%);
+}
+
+.theme-dark .table-card .table-card__top-actions .MuiIconButton-root.Mui-disabled .MuiSvgIcon-root {
+  color: rgb(255 255 255 / 30%);
+}
+
+
+/* Responsividade */
+@media (width <=768px) {
+  .table-card {
+    padding: 1rem;
+  }
+
+  .table-card__gmail-card-content {
+    padding: 0.875rem;
+  }
+
+  .table-card__gmail-title {
+    font-size: 0.875rem;
+  }
+
+  .table-card__gmail-preview-item {
+    font-size: 0.75rem;
+  }
+
+
+
+  .table-card__top-actions {
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (width <=480px) {
+  .table-card__gmail-title {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Animações suaves */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+/* Removida regra global de ícones brancos que afetava botões com contraste específico */
+
+
+/* Classe específica para contraste em fundo dourado (como solicitado) */
+.table-card .gold-contrast-label,
+.table-card .gold-contrast-label.MuiIconButton-root {
+  color: var(--color-on-primary-contrast);
+}
+
+.theme-dark .table-card .gold-contrast-label,
+.theme-dark .table-card .gold-contrast-label.MuiIconButton-root,
+.theme-dark .table-card .gold-contrast-label .MuiSvgIcon-root {
+  color: var(--color-on-primary-contrast);
+}
+
+/* Seletor específico para o botão Adicionar com texto cinza */
+.table-card .table-card__add-btn.MuiButton-root,
+.table-card .table-card__add-btn.MuiIconButton-root {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary-contrast);
+}
+
+.theme-dark .table-card .table-card__add-btn.MuiButton-root,
+.theme-dark .table-card .table-card__add-btn.MuiIconButton-root,
+.theme-dark .table-card .table-card__add-btn .MuiSvgIcon-root {
+  color: var(--color-on-primary-contrast);
+}
+
+.table-card .table-card__add-btn.MuiButton-root:hover,
+.table-card .table-card__add-btn.MuiIconButton-root:hover {
+  background-color: var(--color-primary-dark);
+}
+
+
+
+/* Estilos modernos do Dialog - Design Apple */
+.table-card .MuiDialog-paper {
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.table-card .MuiDialog-paper .MuiDialogContent-root {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden auto;
+  padding: 24px;
+}
+
+.table-card .MuiDialogTitle-root {
+  border-bottom: none;
+  flex-shrink: 0;
+  padding: 24px 24px 16px;
+}
+
+.table-card .MuiDialogContent-root {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden auto;
+  padding: 24px;
+}
+
+/* Garantir espaço para o label flutuante do primeiro campo */
+.table-card .MuiDialogContent-root>*:first-of-type {
+  margin-top: 0;
+}
+
+.table-card .MuiDialogContent-root .MuiStack-root>*:first-of-type {
+  margin-top: 8px;
+}
+
+.table-card .MuiDialogContent-root .MuiTextField-root:first-of-type {
+  margin-top: 8px;
+}
+
+/* Garantir que os labels flutuantes não sejam cortados */
+.table-card .MuiDialogContent-root .MuiInputLabel-root {
+  overflow: visible;
+}
+
+.table-card .MuiDialogContent-root .MuiFormLabel-root {
+  overflow: visible;
+}
+
+.table-card .MuiDialogActions-root {
+  border-top: none;
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 16px 24px 24px;
+}
+
+.table-card .MuiDialog-root .MuiTextField-root {
+  margin-bottom: 0;
+}
+
+.table-card .MuiDialog-root .MuiOutlinedInput-root {
+  border-radius: 12px;
+}
+
+.table-card .MuiDialog-root .MuiOutlinedInput-input {
+  padding: 10px 14px;
+}
+
+.table-card .MuiDialog-root .MuiInputLabel-root {
+  font-size: 15px;
+}
+
+.table-card .MuiDialog-root .MuiFormHelperText-root {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Botões com bordas arredondadas */
+.table-card .MuiDialog-root .MuiButton-root {
+  border-radius: 10px;
+  padding: 8px 16px;
+  text-transform: none;
+}
+
+.table-card .MuiDialog-root .MuiButton-contained {
+  padding: 8px 20px;
+}
+
+.table-card .MuiDialog-root .MuiButton-contained:hover {
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+}
+
+/* Backdrop com blur (estilo Apple) */
+.table-card .MuiBackdrop-root {
+  backdrop-filter: blur(8px);
+  background-color: rgb(0 0 0 / 30%);
+}
+
+.theme-dark .table-card .MuiBackdrop-root {
+  background-color: rgb(0 0 0 / 50%);
+}
+
+/* 
+ * Global Text Selection Styles
+ * Added here to be reusable system-wide while being defined in TableCard as requested 
+ */
+.theme-dark ::selection {
+  background-color: rgb(var(--color-primary-rgb), 0.4);
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+}
+
+
+
+/* Pagination Styles - Premium 2025 Refinement */
+.table-card__pagination {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 12px;
+  margin-top: auto;
+
+  /* Push to bottom of flex container */
+  transition: all 0.3s ease;
+}
+
+@media (width >=901px) {
+  .table-card__pagination {
+    margin-top: 1.5rem;
+
+    /* Space from table when content is long */
+  }
+}
+
+.theme-dark .table-card__pagination {
+  background: rgb(255 255 255 / 1%);
+  border-color: rgb(255 255 255 / 6%);
+}
+
+.table-card__pagination-info {
+  color: var(--color-text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  opacity: 0.8;
+}
+
+.table-card__pagination-btn {
+  background: rgb(255 255 255 / 4%);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 8px;
+  color: var(--color-text);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-dark .table-card__pagination-btn {
+  background: rgb(255 255 255 / 2%);
+  color: #fff;
+}
+
+.table-card__pagination-btn:hover:not(.Mui-disabled) {
+  background-color: var(--color-primary-faint);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.table-card__pagination-btn.Mui-disabled {
+  opacity: 0.15;
+}
+
+/* Items per page selector */
+.table-card__pagination .select-picker .MuiOutlinedInput-root {
+  background-color: rgb(255 255 255 / 2%);
+  border-radius: 8px;
+  font-size: 0.825rem;
+  height: 38px;
+  transition: all 0.2s ease;
+}
+
+.theme-dark .table-card__pagination .select-picker .MuiOutlinedInput-root {
+  color: #fff;
+}
+
+/* Page Jump / Input Styling */
+.table-card__page-jump {
+  align-items: center;
+  background: rgb(255 255 255 / 2%);
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 10px;
+  display: flex;
+  height: 38px;
+  justify-content: center;
+  padding: 0 16px;
+  transition: all 0.2s ease;
+}
+
+.table-card__page-jump .MuiTypography-root {
+  align-items: center;
+  color: var(--color-text);
+  display: flex;
+  height: 100%;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.table-card__page-jump:focus-within {
+  border-color: var(--color-primary);
+}
+
+.theme-dark .table-card__page-jump {
+  background: rgb(255 255 255 / 4%);
+}
+
+
+.theme-dark .table-card__page-jump .MuiTypography-root {
+  color: #fff;
+  opacity: 0.6;
+}
+
+.table-card__custom-limit .MuiTextField-root .MuiOutlinedInput-root {
+  background: rgb(255 255 255 / 2%);
+  border-radius: 8px;
+  height: 38px;
+}
+
+.table-card__custom-limit-btn {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgb(var(--color-primary-rgb), 0.15);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  height: 38px;
+  padding: 0 16px;
+  text-transform: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 32px;
+}
+
+.table-card__custom-limit-btn:hover {
+  box-shadow: 0 4px 10px rgb(var(--color-primary-rgb), 0.25);
+  transform: translateY(-1px);
+}
+
+/* Mobile Responsiveness for Pagination */
+@media (width <=900px) {
+  .table-card__pagination {
+    background: transparent;
+    border: none;
+    margin-top: 1rem;
+    padding: 0;
+  }
+
+  .table-card__pagination-info-group {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 10%);
+    gap: 1.5rem;
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .table-card__pagination-nav {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 10%);
+    margin-top: 0.75rem;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .theme-dark .table-card__pagination-info-group,
+  .theme-dark .table-card__pagination-nav {
+    background: rgb(255 255 255 / 2%);
+  }
+
+  .table-card__pagination-info {
+    font-size: 0.95rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .table-card__pagination-info-group .MuiStack-root {
+    width: 100%;
+  }
+}
+
+/* New Refactored BEM Classes */
+.table-card__stack-flex {
+  flex: 1;
+}
+
+.table-card__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.table-card__no-access {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  padding: 64px 0;
+}
+
+.table-card__content-wrapper {
+  transition: opacity 0.2s;
+}
+
+.table-card__content-wrapper--loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.table-card__loading-overlay {
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.table-card__loading-progress.MuiLinearProgress-root {
+  background-color: transparent;
+  height: 2px;
+}
+
+.table-card__loading-progress .MuiLinearProgress-bar {
+  background-color: var(--color-primary, #dbaa3d);
+}
+
+.table-card__menu-icon-wrapper {
+  display: inline-flex;
+  margin-right: 8px;
+}
+
+.MuiSvgIcon-root.table-card__menu-icon {
+  margin-right: 8px;
+}
+
+.MuiMenuItem-root.table-card__menu-item--error {
+  color: var(--color-error);
+}
+
+.MuiSvgIcon-root.table-card__menu-icon--error {
+  color: var(--color-error);
+}
+
+/* Pagination Refactor */
+.table-card__pagination-container {
+  padding: 20px 12px;
+}
+
+@media (width >=900px) {
+  .table-card__pagination-container {
+    padding: 12px 16px;
+  }
+}
+
+.table-card__pagination-info-wrapper {
+  justify-content: center;
+  width: 100%;
+}
+
+@media (width >=900px) {
+  .table-card__pagination-info-wrapper {
+    justify-content: flex-start;
+    width: auto;
+  }
+}
+
+.table-card__pagination-highlight {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.table-card__pagination-text-highlight {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.table-card__pagination-control-group {
+  justify-content: center;
+  width: 100%;
+}
+
+@media (width >=600px) {
+  .table-card__pagination-control-group {
+    width: auto;
+  }
+}
+
+.table-card__pagination-select-wrapper {
+  width: 100%;
+}
+
+@media (width >=600px) {
+  .table-card__pagination-select-wrapper {
+    width: 140px;
+  }
+}
+
+.table-card__custom-limit-input {
+  width: 65px;
+}
+
+.table-card__custom-limit-input input {
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.table-card__pagination-nav-wrapper {
+  justify-content: center;
+  width: 100%;
+}
+
+@media (width >=900px) {
+  .table-card__pagination-nav-wrapper {
+    width: auto;
+  }
+}
+
+.table-card__page-jump-wrapper {
+  gap: 4px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.table-card__page-input {
+  width: 28px;
+}
+
+.table-card__page-input .MuiInputBase-root {
+  background: transparent;
+  height: 100%;
+  padding: 0;
+}
+
+.table-card__page-input .MuiInputBase-input {
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0;
+  text-align: right;
+}
+
+.table-card__page-input .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+
+.table-card__total-pages-text {
+  color: var(--color-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-width: 28px;
+  opacity: 0.8;
+  text-align: left;
+  user-select: none;
+}
+
+/* Toolbar Refactor */
+.table-card__toolbar-container {
+  margin-bottom: 8px;
+}
+
+@media (width >=900px) {
+  .table-card__toolbar-container {
+    margin-bottom: 0;
+  }
+}
+
+.table-card__toolbar-title-wrapper {
+  width: 100%;
+}
+
+@media (width >=900px) {
+  .table-card__toolbar-title-wrapper {
+    width: auto;
+  }
+}
+
+.table-card__toolbar-title {
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.table-card__add-btn-mobile {
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgb(var(--color-primary-rgb), 0.15);
+  color: var(--color-on-secondary);
+  display: flex;
+  height: 38px;
+  width: 38px;
+}
+
+@media (width >=900px) {
+  .table-card__add-btn-mobile {
+    display: none;
+  }
+}
+
+.table-card__add-btn-mobile:hover {
+  box-shadow: 0 4px 10px rgb(var(--color-primary-rgb), 0.25);
+  transform: translateY(-1px);
+}
+
+.table-card__toolbar-controls-wrapper {
+  flex: 1;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+@media (width >=900px) {
+  .table-card__toolbar-controls-wrapper {
+    margin-left: 32px;
+    width: auto;
+  }
+}
+
+.table-card__controls-container {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+@media (width >=900px) {
+  .table-card__controls-container {
+    flex: 0;
+  }
+}
+
+.table-card__add-btn-desktop {
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgb(var(--color-primary-rgb), 0.15);
+  color: var(--color-on-secondary);
+  display: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  height: 38px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-transform: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+@media (width >=900px) {
+  .table-card__add-btn-desktop {
+    display: flex;
+  }
+}
+
+@media (width >=900px) {
+  .table-card__add-btn-desktop {
+    display: flex;
+  }
+}
+
+.table-card__add-btn-desktop:hover {
+  box-shadow: 0 4px 10px rgb(var(--color-primary-rgb), 0.25);
+  transform: translateY(-1px);
+}
+
+/* TableView Refactor */
+.table-card__table--fixed {
+  table-layout: fixed;
+}
+
+.table-card__cell-checkbox {
+  width: 50px;
+}
+
+.table-card__cell-header {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-card__cell-actions {
+  width: 80px;
+}
+
+.table-card__cell-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-card__empty-text {
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* TableControls Refactor */
+
+.table-card__density-popover-paper {
+  margin-top: 8px;
+  overflow: visible;
+  width: 220px;
+}
+
+.table-card__columns-popover-paper {
+  margin-top: 8px;
+  max-width: 90vw;
+  overflow-x: hidden;
+  width: calc(100vw - 32px);
+}
+
+@media (width >=600px) {
+  .table-card__columns-popover-paper {
+    min-width: 420px;
+    width: auto;
+  }
+}
+
+.table-card__popover-content {
+  padding: 8px;
+}
+
+.table-card__popover-header {
+  padding: 4px 8px;
+}
+
+.table-card__density-list {
+  margin-top: 8px;
+}
+
+.table-card__column-item {
+  border-bottom: 1px solid rgb(255 255 255 / 5%);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.table-card__column-item:last-of-type {
+  border-bottom: none;
+}
+
+.table-card__column-item:hover {
+  background-color: rgb(255 255 255 / 2%);
+}
+
+.table-card__column-item-desktop {
+  align-items: center;
+  display: none;
+  width: 100%;
+}
+
+@media (width >=600px) {
+  .table-card__column-item-desktop {
+    display: flex;
+  }
+}
+
+.table-card__column-item-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (width >=600px) {
+  .table-card__column-item-mobile {
+    display: none;
+  }
+}
+
+.table-card__drag-handle {
+  cursor: grab;
+  margin-right: 8px;
+  opacity: 0.3;
+  padding: 4px;
+}
+
+
+.table-card__visibility-checkbox {
+  margin-right: 8px;
+  padding: 4px;
+}
+
+.table-card__visibility-icon-off {
+  opacity: 0.5;
+}
+
+.table-card__column-label {
+  flex: 1;
+  font-weight: 600;
+  margin-right: 16px;
+}
+
+.table-card__span-control-group {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.table-card__width-icon {
+  font-size: 1.1rem;
+  opacity: 0.5;
+  transform: rotate(90deg);
+}
+
+.table-card__span-selector {
+  background-color: var(--color-border-lighter);
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+}
+
+.table-card__span-level {
+  align-items: center;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.75rem;
+  font-weight: 500;
+  height: 24px;
+  justify-content: center;
+  opacity: 0.7;
+  transition: all 0.15s ease;
+  width: 24px;
+}
+
+.table-card__span-level--active {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  opacity: 1;
+}
+
+.table-card__span-level:hover:not(.table-card__span-level--active) {
+  background-color: var(--color-hover);
+  opacity: 1;
+}
+
+.table-card__mobile-reorder-group {
+  background-color: var(--color-border-lighter);
+  border: 1px solid var(--color-border-light);
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 36px;
+  padding: 2px;
+}
+
+.table-card__mobile-reorder-btn {
+  align-items: center;
+  border-radius: 6px;
+  color: var(--color-text);
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  width: 42px;
+}
+
+.table-card__mobile-reorder-btn:hover {
+  background-color: var(--color-hover);
+}
+
+.table-card__mobile-reorder-btn.Mui-disabled {
+  opacity: 0.15;
+}
+
+.table-card__mobile-divider {
+  background-color: var(--color-border-light);
+  height: 18px;
+  margin-left: 2px;
+  margin-right: 2px;
+  width: 1px;
+}
+
+/* Icons Refactor */
+.table-card__icon--middle {
+  vertical-align: middle;
+}
+
+/* Bulk Actions Refactor */
+.table-card__bulk-action-stack {
+  align-self: flex-end;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+@media (width >=600px) {
+  .table-card__bulk-action-stack {
+    align-self: center;
+    justify-content: flex-start;
+    width: auto;
+  }
+}
+
+.table-card__bulk-delete-btn--armed {
+  background-color: var(--color-hover);
+}
+
+.theme-dark .table-card__custom-limit-btn {
+  color: var(--color-on-primary-contrast);
+}

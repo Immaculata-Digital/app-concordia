@@ -1,0 +1,20 @@
+.relationship-types-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+}
+
+.relationship-types-page__loading {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
+.relationship-helper-text {
+    color: var(--color-on-secondary);
+    margin-left: 12px;
+}

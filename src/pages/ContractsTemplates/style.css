@@ -1,0 +1,32 @@
+.contracts-templates-page {
+    background-color: var(--color-background);
+    padding: 0;
+    width: 100%;
+}
+
+.contracts-templates-page__loading {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    min-height: 320px;
+}
+
+@media (width <=768px) {
+    .contracts-templates-page {
+        padding: 0;
+    }
+}
+
+.theme-dark .contracts-templates-page .contracts-templates-page__empty-text {
+    color: rgb(255 255 255 / 70%);
+}
+
+.theme-dark .contracts-templates-page .contracts-templates-page__label {
+    color: #fff;
+}
+
+.contracts-templates-page__no-access-message {
+    margin-top: 32px;
+}

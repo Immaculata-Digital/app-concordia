@@ -1,0 +1,558 @@
+.block-editor {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    padding: 16px;
+    position: relative;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.block-editor--focused {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.block-editor__header {
+    align-items: center;
+    display: flex;
+    height: 24px;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.block-editor__fullscreen-btn {
+    opacity: 0.3;
+    padding: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.block-editor:hover .block-editor__fullscreen-btn {
+    opacity: 1;
+}
+
+.block-editor__history-btn {
+    color: var(--color-on-secondary);
+    opacity: 0.3;
+    padding: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.block-editor:hover .block-editor__history-btn {
+    opacity: 1;
+}
+
+.theme-dark .block-editor__label {
+    background-color: var(--color-surface);
+}
+
+.block-editor__label {
+    background-color: rgb(234 234 234);
+    color: var(--color-on-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    left: 10px;
+    letter-spacing: 0.0333em;
+    line-height: 1;
+    padding: 0 4px;
+    position: absolute;
+    top: -8px;
+    transform: none;
+    transform-origin: left center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.block-editor__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    /* Added gap to replace headings margin for alignment */
+    width: 100%;
+}
+
+.block-item {
+    align-items: flex-start;
+    border-radius: 4px;
+    display: flex;
+    padding-left: 52px;
+    position: relative;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.block-item:hover,
+.block-item--selected {
+    background-color: rgb(var(--color-primary-rgb), 0.08);
+}
+
+.block-item--selected {
+    background-color: rgb(var(--color-primary-rgb), 0.15);
+}
+
+
+.block-item--drag-over-top {
+    border-top: 2px solid var(--color-primary);
+}
+
+.block-item--drag-over-bottom {
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.block-item:hover .block-item__actions {
+    opacity: 1;
+}
+
+.block-item__actions {
+    align-items: center;
+    color: var(--color-text);
+    display: flex;
+    gap: 0;
+    height: 24px;
+    left: 2px;
+    opacity: 0.1;
+    position: absolute;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    z-index: 100;
+
+    /* Matches the line-height of many blocks */
+}
+
+.block-item__actions svg {
+    font-size: 18px;
+
+    /* Uniform size for visual consistency */
+}
+
+/* Precise centering with the first line of each block type */
+.block-item--text .block-item__actions {
+    top: 4px;
+}
+
+.block-item--h1 .block-item__actions {
+    top: 13px;
+}
+
+.block-item--h2 .block-item__actions {
+    top: 10px;
+}
+
+.block-item--h3 .block-item__actions {
+    top: 7px;
+}
+
+.block-item--bullet,
+.block-item--number {
+    padding-left: 70px;
+}
+
+.block-item--bullet .block-item__actions,
+.block-item--number .block-item__actions {
+    top: 4px;
+}
+
+.block-item__add-btn {
+    color: var(--color-on-secondary);
+    padding: 2px;
+}
+
+.block-item__add-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-primary);
+}
+
+.block-item__drag-handle {
+    align-items: center;
+    border-radius: 4px;
+    color: var(--color-on-secondary);
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    padding: 2px;
+}
+
+.block-item__drag-handle:hover {
+    background-color: var(--color-hover);
+    color: var(--color-primary);
+}
+
+/* Hover effect for the whole block */
+.block-item:hover {
+    background-color: rgb(var(--color-primary-rgb), 0.08);
+}
+
+.block-content {
+    color: var(--color-text);
+    line-height: 1.5;
+    min-height: 1.5em;
+    outline: none;
+    overflow-wrap: break-word;
+    padding: 4px 0;
+    width: 100%;
+}
+
+.block-content[data-placeholder]:empty::before {
+    color: var(--color-on-secondary);
+    content: attr(data-placeholder);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Heading Styles */
+.block-content--h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
+
+.block-content--h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.block-content--h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.25rem;
+}
+
+/* List Styles */
+.block-item--bullet::before {
+    color: var(--color-on-secondary);
+    content: "•";
+    font-size: 1rem;
+    left: 56px;
+    line-height: 24px;
+    position: absolute;
+    top: 4px;
+}
+
+.block-item__number {
+    color: var(--color-on-secondary);
+    left: 42px;
+    line-height: 24px;
+    min-width: 24px;
+    position: absolute;
+    text-align: right;
+    top: 4px;
+}
+
+.block-content--completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+/* Slash Menu Styles (Customized per system theme) */
+
+.slash-menu__item {
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    padding: 6px 8px;
+    transition: all 0.1s ease;
+}
+
+.slash-menu__item:hover,
+.slash-menu__item--selected {
+    background-color: var(--color-hover);
+}
+
+.slash-menu__icon {
+    align-items: center;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border-lighter);
+    border-radius: 6px;
+    color: var(--color-text);
+    display: flex;
+    height: 36px;
+    justify-content: center;
+    min-width: 36px;
+    width: 36px;
+}
+
+.block-editor__scroll-container {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.block-editor__scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.block-editor__scroll-container::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-light);
+    border-radius: 10px;
+}
+
+.block-editor__selection-area {
+    position: relative;
+}
+
+.block-editor--selecting {
+    user-select: none;
+}
+
+
+.block-editor__selection-rect {
+    background-color: rgb(var(--color-primary-rgb), 0.15);
+    border: 1px solid var(--color-primary);
+    pointer-events: none;
+    position: absolute;
+    z-index: 1000;
+}
+
+/* Fullscreen Styles */
+.block-editor--fullscreen {
+    animation: fullscreen-entrance 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(8px);
+    background-color: var(--color-surface);
+    border: none;
+    border-radius: 0;
+    height: 100vh;
+    left: 0;
+    margin: 0;
+    max-height: none;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 9999;
+}
+
+.block-editor--exiting {
+    animation: fullscreen-exit 0.5s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes fullscreen-exit {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes fullscreen-entrance {
+    0% {
+        backdrop-filter: blur(0);
+        background-color: rgb(var(--color-primary-rgb), 0);
+        opacity: 0;
+    }
+
+    100% {
+        backdrop-filter: blur(8px);
+        background-color: var(--color-surface);
+        opacity: 1;
+    }
+}
+
+.block-editor--fullscreen .block-editor__header {
+    animation: fade-in-down 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    height: auto;
+    justify-content: flex-end;
+    margin-bottom: 0;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+}
+
+.block-editor--fullscreen .block-editor__label {
+    background-color: transparent;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: normal;
+    margin-right: auto;
+    opacity: 0.9;
+    padding: 0;
+    position: static;
+    transform: none;
+}
+
+.slash-menu__item .slash-menu__item-title {
+    font-weight: 500;
+}
+
+.slash-menu__item .slash-menu__item-desc {
+    display: block;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.7;
+    text-transform: none;
+}
+
+.block-editor--exiting .block-editor__header {
+    animation: fade-out-up 0.3s ease-in forwards;
+}
+
+@keyframes fade-out-up {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.block-editor--fullscreen .block-editor__scroll-container {
+    animation: content-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    background-color: var(--color-background);
+    height: calc(100vh - 73px);
+    max-height: none;
+    padding: 60px 0;
+}
+
+.block-editor--exiting .block-editor__scroll-container {
+    animation: content-slide-down-exit 0.4s ease-in forwards;
+}
+
+@keyframes content-slide-down-exit {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+}
+
+@keyframes content-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.block-editor--fullscreen .block-editor__content {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 24px;
+}
+
+.block-editor--fullscreen .block-item:hover,
+.block-editor--fullscreen .block-item--selected {
+    background-color: rgb(var(--color-primary-rgb), 0.05);
+}
+
+.block-editor--fullscreen .block-editor__selection-rect {
+    z-index: 2000;
+}
+
+/* Refactored Slash/Block Menu Styles */
+
+/* 1. Popover Paper Styles */
+.slash-menu-paper {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 25%);
+    color: var(--color-text);
+    max-height: 400px;
+    width: 280px;
+}
+
+.slash-menu-paper .MuiListItem-root,
+.slash-menu-paper .MuiListItemIcon-root,
+.slash-menu-paper .MuiTypography-root {
+    color: var(--color-text);
+}
+
+.slash-menu-paper .MuiTypography-caption,
+.slash-menu-paper .slash-menu__section-title {
+    color: var(--color-on-secondary);
+}
+
+/* Block Menu specific overrides (smaller width/shadow) */
+.block-menu-paper {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 15%);
+    min-width: 150px;
+}
+
+/* 2. Container Utility Classes */
+.slash-menu__search-container {
+    padding: 8px;
+}
+
+.slash-menu__list--dense {
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+/* 3. Typography Helpers */
+.slash-menu__section-title {
+    display: block;
+    padding: 8px 16px;
+}
+
+.slash-menu__section-title--condensed {
+    padding: 4px 16px;
+}
+
+/* 4. List Item & Icon Styles */
+
+.slash-menu__item:hover {
+    background-color: var(--color-hover);
+}
+
+.slash-menu__item-icon-wrapper {
+    min-width: 32px;
+}
+
+/* 5. Delete Action Styles */
+.slash-menu__item--delete .MuiListItemIcon-root,
+.slash-menu__item--delete .MuiTypography-root,
+.slash-menu__item--delete svg {
+    color: #ff4d4d;
+}
+
+.slash-menu__item--delete:hover {
+    background-color: var(--color-hover);
+}
+
+.slash-menu__item--delete .slash-menu__item-title {
+    font-weight: 500;
+}

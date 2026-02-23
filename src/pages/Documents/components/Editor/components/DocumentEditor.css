@@ -1,0 +1,38 @@
+/* DocumentEditor.css - Wrapper styles */
+
+.document-editor-wrapper {
+    width: 100%;
+}
+
+.document-editor-wrapper .doc-block-editor {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    min-height: 100%;
+    padding: 0;
+    transition: none;
+    width: 100%;
+}
+
+.document-editor-wrapper .doc-block-editor__header {
+    display: none;
+}
+
+/* Force White Mode (Overrides global theme variables locally) */
+.document-editor-wrapper--force-white {
+    --color-surface: #fff;
+    --color-background: #fff;
+    --color-text: #000;
+    --color-border: transparent;
+    --color-hover: #f5f5f5;
+    --color-on-secondary: #666;
+    color: #000;
+}
+
+.document-editor-wrapper--force-white .doc-block-editor .doc-block-actions {
+    color: rgb(0 0 0 / 50%);
+}
+
+.document-editor-wrapper--force-white .doc-block-editor .doc-block-content {
+    color: #000;
+}

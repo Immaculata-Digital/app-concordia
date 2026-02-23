@@ -1,0 +1,78 @@
+.topbar {
+  backdrop-filter: blur(12px);
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem 1rem 0.5rem;
+  position: sticky;
+  top: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1100;
+}
+
+.topbar__container {
+  align-items: center;
+  display: flex;
+  min-height: 64px;
+  width: 100%;
+}
+
+.topbar__menu-btn {
+  background: var(--color-hover);
+}
+
+.topbar__menu-btn:hover {
+  background: var(--color-hover-strong);
+}
+
+.theme-dark .topbar__menu-btn {
+  color: var(--color-text);
+}
+
+.theme-dark .topbar__menu-btn:hover {
+  background: var(--color-hover-strong);
+  color: var(--color-primary);
+}
+
+.topbar__badge .MuiBadge-badge {
+  background-color: var(--color-primary);
+  border: 1.5px solid var(--color-surface);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 700;
+  height: 16px;
+  min-width: 16px;
+}
+
+.topbar__actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.topbar__actions .MuiIconButton-root {
+  color: var(--color-secondary);
+}
+
+.theme-dark .topbar__actions .MuiIconButton-root {
+  color: var(--color-text);
+}
+
+.theme-dark .topbar__actions .MuiIconButton-root:hover {
+  background: var(--color-hover);
+  color: var(--color-primary);
+}
+
+
+
+@media (width <=768px) {
+  .topbar {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .topbar__container {
+    min-height: 44px;
+  }
+}

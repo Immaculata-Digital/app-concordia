@@ -1,0 +1,12 @@
+.comunicacoes-page {
+  padding: 0;
+}
+
+.comunicacoes-page__loading {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  min-height: 400px;
+}

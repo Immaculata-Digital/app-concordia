@@ -1,0 +1,353 @@
+/* DocumentBlockEditor.css - Exclusive styles for the document editor */
+
+.doc-block-editor {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    outline: none;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+/* Alignment Modifiers */
+.doc-block-item--align-center {
+    justify-content: center;
+    text-align: center;
+}
+
+.doc-block-item--align-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.doc-block-item--align-left {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.doc-block-editor--focused {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.doc-block-editor__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.doc-block-item {
+    align-items: flex-start;
+    border-radius: 4px;
+    display: flex;
+    padding-left: 8px;
+    position: relative;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}
+
+.doc-block-item:hover,
+.doc-block-item--selected {
+    background-color: rgb(var(--color-primary-rgb), 0.08);
+}
+
+.doc-block-item--selected {
+    background-color: rgb(var(--color-primary-rgb), 0.15);
+}
+
+.doc-block-item--drag-over-top {
+    border-top: 2px solid var(--color-primary);
+}
+
+.doc-block-item--drag-over-bottom {
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.doc-block-actions {
+    align-items: center;
+    display: flex;
+    gap: 0;
+    height: 24px;
+    left: -52px;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    z-index: 100;
+}
+
+/* User Request: + and :: colors
+   Black in Dark Theme, Gray in Light Theme (since they are on white A4 paper) */
+.theme-dark .doc-block-actions {
+    color: #000;
+}
+
+.theme-light .doc-block-actions {
+    color: #666;
+}
+
+/* Show actions on hover or when block is selected/focused */
+.doc-block-item:hover .doc-block-actions,
+.doc-block-item--selected .doc-block-actions,
+.doc-block-item:focus-within .doc-block-actions {
+    opacity: 1;
+}
+
+.doc-block-actions svg {
+    font-size: 18px;
+}
+
+/* Precise centering */
+.doc-block-item--text .doc-block-actions {
+    top: 4px;
+}
+
+.doc-block-item--h1 .doc-block-actions {
+    top: 13px;
+}
+
+.doc-block-item--h2 .doc-block-actions {
+    top: 10px;
+}
+
+.doc-block-item--h3 .doc-block-actions {
+    top: 7px;
+}
+
+.doc-block-item--number,
+.doc-block-item--bullet {
+    padding-left: 8px;
+
+    /* Standardize with other blocks */
+}
+
+.doc-block-item--bullet .doc-block-actions,
+.doc-block-item--number .doc-block-actions {
+    top: 4px;
+}
+
+.doc-block-add-btn {
+    padding: 2px;
+}
+
+.doc-block-item:hover .doc-block-add-btn {
+    color: inherit;
+
+    /* will be overridden by hover if needed */
+}
+
+.doc-block-add-btn:hover {
+    background-color: var(--color-hover);
+    color: var(--color-primary);
+}
+
+.doc-block-drag-handle {
+    align-items: center;
+    border-radius: 4px;
+    cursor: grab;
+    display: flex;
+    justify-content: center;
+    padding: 2px;
+}
+
+.doc-block-drag-handle:hover {
+    background-color: var(--color-hover);
+    color: var(--color-primary);
+}
+
+.doc-block-item--bullet .doc-block-content,
+.doc-block-item--number .doc-block-content {
+    flex: 0 1 auto;
+    width: auto;
+}
+
+.doc-block-content {
+    color: #000;
+
+    /* Force deep black on white paper */
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 11pt;
+
+    /* Professional contract size */
+    line-height: 1.6;
+    min-height: 1.5em;
+    outline: none;
+    overflow-wrap: break-word;
+    padding: 2px 0;
+    width: 100%;
+}
+
+.doc-block-content[data-placeholder]:empty::before {
+    color: var(--color-on-secondary);
+    content: attr(data-placeholder);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.doc-block-content--h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
+
+.doc-block-content--h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.doc-block-content--h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 0.25rem;
+}
+
+.doc-block-item--bullet::before {
+    color: var(--color-text);
+    content: "•";
+    flex-shrink: 0;
+    font-size: 1rem;
+    line-height: 22px;
+    margin-right: 8px;
+    margin-top: 4px;
+}
+
+.doc-block-item--number .doc-block-item__number {
+    color: #000;
+    flex-shrink: 0;
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-right: 8px;
+    margin-top: 2px;
+    text-align: right;
+}
+
+.doc-block-content--completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.doc-slash-menu {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+.doc-block-editor__scroll-container {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.doc-block-editor--selecting {
+    user-select: none;
+}
+
+.doc-block-editor__selection-rect {
+    background-color: rgb(var(--color-primary-rgb), 0.15);
+    border: 1px solid var(--color-primary);
+    pointer-events: none;
+    position: absolute;
+    z-index: 1000;
+}
+
+/* Refactored Slash/Block Menu Styles (Standardized with BlockEditorPicker) */
+
+/* 1. Popover Paper Styles */
+.slash-menu-paper {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 25%);
+    color: var(--color-text);
+    max-height: 400px;
+    width: 280px;
+}
+
+.slash-menu-paper .MuiListItem-root,
+.slash-menu-paper .MuiListItemIcon-root,
+.slash-menu-paper .MuiTypography-root {
+    color: var(--color-text);
+}
+
+.slash-menu-paper .MuiTypography-caption,
+.slash-menu-paper .slash-menu__section-title {
+    color: var(--color-on-secondary);
+}
+
+/* Block Menu specific overrides (smaller width/shadow) */
+.block-menu-paper {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 15%);
+    min-width: 150px;
+}
+
+/* 2. Container Utility Classes */
+.slash-menu__search-container {
+    padding: 8px;
+}
+
+.slash-menu__list--dense {
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+/* 3. Typography Helpers */
+.slash-menu__section-title {
+    display: block;
+    padding: 8px 16px;
+}
+
+.slash-menu__section-title--condensed {
+    padding: 4px 16px;
+}
+
+.slash-menu__item-title {
+    font-weight: 500;
+}
+
+.slash-menu__item-desc {
+    display: block;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.7;
+    text-transform: none;
+}
+
+/* 4. List Item & Icon Styles */
+.slash-menu__item {
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.slash-menu__item:hover {
+    background-color: var(--color-hover);
+}
+
+.slash-menu__item-icon-wrapper {
+    min-width: 32px;
+}
+
+/* 5. Delete Action Styles */
+.slash-menu__item--delete .MuiListItemIcon-root,
+.slash-menu__item--delete .MuiTypography-root,
+.slash-menu__item--delete svg {
+    color: #ff4d4d;
+}
+
+.slash-menu__item--delete:hover {
+    background-color: var(--color-hover);
+}
+
+.slash-menu__item--delete .slash-menu__item-title {
+    font-weight: 500;
+}

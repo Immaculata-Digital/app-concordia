@@ -1,0 +1,154 @@
+.dashboard-kpi-container {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+}
+
+.dashboard-kpi-card {
+    border-radius: 16px;
+    padding: 4px;
+    transition: all 0.3s ease;
+}
+
+.dashboard-kpi-card:hover {
+    background-color: rgb(255 255 255 / 3%);
+    transform: translateX(8px);
+}
+
+.dashboard-kpi-icon-box {
+    align-items: center;
+    border-radius: 12px;
+    display: flex;
+    flex-shrink: 0;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}
+
+.dashboard-kpi-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.dashboard-kpi-header {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+    margin-bottom: 5px;
+}
+
+.dashboard-kpi-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    opacity: 0.6;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.dashboard-kpi-info-icon {
+    cursor: help;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    opacity: 0.4;
+}
+
+.dashboard-kpi-value {
+    color: var(--color-text);
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    overflow-wrap: break-word;
+    min-width: 0;
+}
+
+/* Responsive adjustments */
+@media (width >=600px) {
+    .dashboard-kpi-card {
+        padding: 8px;
+    }
+
+    .dashboard-kpi-icon-box {
+        height: 48px;
+        width: 48px;
+    }
+
+    .MuiSvgIcon-root.dashboard-kpi-icon {
+        font-size: 1.9rem;
+    }
+
+    .dashboard-kpi-value {
+        font-size: 1.4rem;
+    }
+}
+
+@media (width >=1200px) {
+    .dashboard-kpi-value {
+        font-size: 1.1rem;
+    }
+}
+
+@media (width >=1536px) {
+
+    /* xl breakpoint */
+    .dashboard-kpi-value {
+        font-size: 1.25rem;
+    }
+
+}
+
+
+
+.dashboard-body-card-content {
+    padding: 10px;
+}
+
+@media (width >=600px) {
+    .dashboard-body-card-content {
+        padding: 5px;
+    }
+}
+
+/* Modifier Classes for Colors */
+.dashboard-kpi-icon-box--primary {
+    background-color: rgb(var(--color-primary-rgb), 0.12);
+    box-shadow: 0 8px 16px rgb(var(--color-primary-rgb), 0.08);
+    color: var(--color-primary);
+}
+
+.dashboard-kpi-icon-box--warning {
+    background-color: rgb(219 170 61 / 12%);
+    box-shadow: 0 8px 16px rgb(219 170 61 / 8%);
+    color: #dbaa3d;
+}
+
+.dashboard-kpi-icon-box--success {
+    background-color: rgb(76 175 80 / 12%);
+    box-shadow: 0 8px 16px rgb(76 175 80 / 8%);
+    color: #4caf50;
+}
+
+.dashboard-kpi-icon-box--info {
+    background-color: rgb(33 150 243 / 12%);
+    box-shadow: 0 8px 16px rgb(33 150 243 / 8%);
+    color: #2196f3;
+}
+
+/* Animation Delays */
+.MuiGrid-root:nth-of-type(1) .dashboard-kpi-card {
+    animation-delay: 0.1s;
+}
+
+.MuiGrid-root:nth-of-type(2) .dashboard-kpi-card {
+    animation-delay: 0.2s;
+}
+
+.MuiGrid-root:nth-of-type(3) .dashboard-kpi-card {
+    animation-delay: 0.3s;
+}
+
+.MuiGrid-root:nth-of-type(4) .dashboard-kpi-card {
+    animation-delay: 0.4s;
+}

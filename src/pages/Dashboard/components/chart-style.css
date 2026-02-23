@@ -1,0 +1,337 @@
+/* Dashboard Status Chart Styles */
+.status-chart__empty-box {
+    align-items: center;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+}
+
+.status-chart__content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    width: 100%;
+}
+
+@media (width >=600px) {
+    .status-chart__content {
+        padding: 16px;
+    }
+}
+
+.status-chart__chart-box {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    height: 200px;
+    justify-content: center;
+    position: relative;
+    width: 200px;
+}
+
+@media (width >=600px) {
+    .status-chart__chart-box {
+        height: 240px;
+        width: 240px;
+    }
+}
+
+@media (width >=1536px) {
+    .status-chart__chart-box {
+        height: 260px;
+        width: 260px;
+    }
+}
+
+.status-chart__pie-chart {
+    height: 100%;
+    width: 100%;
+}
+
+.status-chart__center-info {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+}
+
+.status-chart__center-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+@media (width >=600px) {
+    .status-chart__center-label {
+        font-size: 0.7rem;
+    }
+}
+
+.status-chart__center-value {
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+@media (width >=600px) {
+    .status-chart__center-value {
+        font-size: 1.1rem;
+    }
+}
+
+.status-chart__center-count {
+    font-size: 0.6rem;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+@media (width >=600px) {
+    .status-chart__center-count {
+        font-size: 0.7rem;
+    }
+}
+
+.status-chart__legend-box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+@media (width >=600px) {
+    .status-chart__legend-box {
+        gap: 8px;
+    }
+}
+
+.status-chart__legend-toggle {
+    align-self: flex-start;
+    color: var(--color-on-secondary);
+    font-size: 0.7rem;
+    min-height: auto;
+    opacity: 0.8;
+    padding: 4px 8px;
+    text-transform: none;
+}
+
+.status-chart__legend-toggle:hover {
+    background-color: rgb(var(--color-primary-rgb), 0.05);
+    color: var(--color-primary);
+    opacity: 1;
+}
+
+.theme-dark .status-chart__legend-toggle:hover {
+    background-color: rgb(255 255 255 / 5%);
+}
+
+
+.status-chart__legend-grid {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: 1fr;
+}
+
+@media (width >=600px) {
+    .status-chart__legend-grid {
+        gap: 8px;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (width >=900px) {
+    .status-chart__legend-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (width >=1536px) {
+    .status-chart__legend-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.status-chart__legend-item {
+    align-items: flex-start;
+    border-radius: 10px;
+    display: flex;
+    gap: 12px;
+    padding: 6px;
+    transition: all 0.2s ease;
+}
+
+@media (width >=600px) {
+    .status-chart__legend-item {
+        padding: 8px;
+    }
+}
+
+.status-chart__legend-item:hover {
+    background-color: rgb(0 0 0 / 2%);
+    transform: translateX(4px);
+}
+
+.theme-dark .status-chart__legend-item:hover {
+    background-color: rgb(255 255 255 / 3%);
+}
+
+.status-chart__legend-dot {
+    border-radius: 50%;
+    flex-shrink: 0;
+    height: 8px;
+    margin-top: 6px;
+    width: 8px;
+}
+
+.status-chart__legend-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.status-chart__legend-header {
+    align-items: flex-start;
+    display: flex;
+    margin-bottom: 1px;
+    width: 100%;
+}
+
+.status-chart__legend-title {
+    flex: 1;
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-right: 8px;
+    opacity: 0.9;
+    overflow-wrap: break-word;
+}
+
+@media (width >=600px) {
+    .status-chart__legend-title {
+        font-size: 0.8rem;
+    }
+}
+
+.status-chart__legend-percentage {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+@media (width >=600px) {
+    .status-chart__legend-percentage {
+        font-size: 0.8rem;
+    }
+}
+
+.status-chart__legend-footer {
+    column-gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.65rem;
+    opacity: 0.5;
+    width: 100%;
+}
+
+@media (width >=600px) {
+    .status-chart__legend-footer {
+        font-size: 0.7rem;
+    }
+}
+
+/* Dashboard Volume Chart Styles */
+.volume-chart__header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+    padding: 0 8px;
+    width: 100%;
+}
+
+.volume-chart__period-picker {
+    background-color: rgb(0 0 0 / 3%);
+    border-radius: 10px;
+    display: flex;
+    padding: 2px;
+}
+
+.theme-dark .volume-chart__period-picker {
+    background-color: rgb(255 255 255 / 5%);
+}
+
+.volume-chart__period-btn {
+    border-radius: 8px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    min-width: 32px;
+    padding: 4px 6px;
+    text-transform: none;
+}
+
+@media (width >=600px) {
+    .volume-chart__period-btn {
+        font-size: 0.7rem;
+        min-width: 40px;
+        padding: 4px 10px;
+    }
+}
+
+.volume-chart__period-btn.volume-chart__period-btn--active {
+    background-color: white;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+    color: var(--color-primary);
+}
+
+.theme-dark .volume-chart__period-btn.volume-chart__period-btn--active {
+    background-color: rgb(var(--color-primary-rgb), 0.15);
+    box-shadow: none;
+}
+
+.volume-chart__period-btn.volume-chart__period-btn--inactive {
+    background-color: transparent;
+    color: var(--mui-palette-text-secondary);
+}
+
+.theme-dark .volume-chart__period-btn.volume-chart__period-btn--inactive {
+    color: #9CA3AF;
+}
+
+.volume-chart__chart-box {
+    padding-top: 8px;
+    position: relative;
+    width: 100%;
+}
+
+.volume-chart__bar-chart {
+    width: 100%;
+}
+
+.volume-chart__bar-chart .MuiBarElement-root {
+    fill: url("#barGradient");
+    rx: 4px;
+}
+
+.volume-chart__bar-chart .MuiChartsAxis-line,
+.volume-chart__bar-chart .MuiChartsAxis-tick {
+    stroke: #E5E7EB;
+    stroke-width: 1px;
+}
+
+/* Gradient Definition Sizing */
+.volume-chart__gradient-def {
+    position: absolute;
+}
+
+/* Hide Legends via CSS to avoid sx */
+.status-chart__pie-chart .MuiChartsLegend-root,
+.volume-chart__bar-chart .MuiChartsLegend-root {
+    display: none;
+}
