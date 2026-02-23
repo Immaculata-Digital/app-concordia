@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { produtoCategoriaService, type CreateProdutoCategoriaPayload, type UpdateProdutoCategoriaPayload } from '../../services/produtoCategorias'
+import { produtoCategoriaService, type UpdateProdutoCategoriaPayload } from '../../services/produtoCategorias'
 
 export const useProdutoCategorias = () => {
     return useQuery({

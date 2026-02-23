@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { Grid } from '@mui/material'
 import { TableCardModal } from '../../../components/Modals'
 import TextPicker from '../../../components/TextPicker'
