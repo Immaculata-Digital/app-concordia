@@ -1,0 +1,85 @@
+name: Build and Deploy - APP Concordia Homolog
+
+on:
+  push:
+    branches: [ "homolog" ]
+  workflow_dispatch:
+
+jobs:
+  build_and_push:
+    name: Build & Push Image to GHCR
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: app-concordia
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build imagem
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker build \
+            --build-arg VITE_API_USUARIOS_BASE_URL='${{ secrets.VITE_API_USUARIOS_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_API_CLIENTES_BASE_URL='${{ secrets.VITE_API_CLIENTES_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_API_COMUNICACOES_BASE_URL='${{ secrets.VITE_API_COMUNICACOES_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_API_CONTRATOS_BASE_URL='${{ secrets.VITE_API_CONTRATOS_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_API_PESSOAS_BASE_URL='${{ secrets.VITE_API_PESSOAS_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_API_CONTATOS_BASE_URL='${{ secrets.VITE_API_CONTATOS_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_API_RELATORIOS_BASE_URL='${{ secrets.VITE_API_RELATORIOS_BASE_URL_HOMOLOG }}' \
+            --build-arg VITE_WS_SERVICE_BASE_URL='${{ secrets.VITE_WS_SERVICE_BASE_URL_HOMOLOG }}' \
+            -t ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog .
+
+      - name: Push imagem
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker push ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog
+
+  deploy:
+    name: Pull & Run on Server
+    runs-on: self-hosted
+    needs: build_and_push
+
+    env:
+      IMAGE_NAME: app-concordia
+
+    steps:
+      - name: Login GHCR (no servidor)
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${REPO_OWNER_LOWER} --password-stdin
+
+      - name: Pull da nova imagem
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker pull ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog
+
+      - name: Parar e remover container antigo
+        run: |
+          docker stop ${IMAGE_NAME}-homolog || true
+          docker rm ${IMAGE_NAME}-homolog || true
+
+      - name: Subir container novo
+        run: |
+          REPO_OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          docker run -d \
+            --name ${IMAGE_NAME}-homolog \
+            --restart unless-stopped \
+            -p 5175:80 \
+            ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog
+
+      - name: Limpeza de imagens antigas
+        run: |
+          docker image prune -f || true
