@@ -84,7 +84,7 @@ export type TableCardRowAction<T extends TableCardRow> = {
   label: string
   icon?: ReactNode
   onClick: (row: T) => void
-  disabled?: boolean
+  disabled?: boolean | ((row: T) => boolean)
   hidden?: boolean | ((row: T) => boolean)
 }
 
@@ -466,7 +466,11 @@ const TableCard = <T extends TableCardRow>({
           }
           return !action.hidden;
         }).map((action) => (
-          <MenuItem key={action.label} onClick={() => { if (menuRow) action.onClick(menuRow); handleCloseMenu(); }} disabled={action.disabled}>
+          <MenuItem
+            key={action.label}
+            onClick={() => { if (menuRow) action.onClick(menuRow); handleCloseMenu(); }}
+            disabled={typeof action.disabled === 'function' ? (menuRow ? action.disabled(menuRow) : false) : action.disabled}
+          >
             {action.icon && <span className="table-card__menu-icon-wrapper">{action.icon}</span>}{action.label}
           </MenuItem>
         ))}

@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
     Snackbar,
     Alert,
@@ -30,6 +31,7 @@ const Comandas = () => {
 
     const { data: comandas = [], isLoading } = useComandasList()
     const createMutation = useCreateComanda()
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const [formOpen, setFormOpen] = useState(false)
     const [detailsOpen, setDetailsOpen] = useState(false)
@@ -39,6 +41,19 @@ const Comandas = () => {
         message: '',
         severity: 'success'
     })
+
+    // Auto-open details if id is in URL
+    useEffect(() => {
+        const id = searchParams.get('id')
+        if (id) {
+            setSelectedComandaId(id)
+            setDetailsOpen(true)
+            // Clear param after opening so it doesn't re-open on refresh if closed
+            const newParams = new URLSearchParams(searchParams)
+            newParams.delete('id')
+            setSearchParams(newParams, { replace: true })
+        }
+    }, [searchParams, setSearchParams])
 
     const columns: TableCardColumn<ComandaDTO>[] = useMemo(() => [
         { key: 'mesaNumero', label: 'Mesa' },

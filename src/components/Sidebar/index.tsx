@@ -79,7 +79,7 @@ const Sidebar = ({ open, onToggle, themeMode, onChangeTheme }: SidebarProps) => 
                 sx={{
                   '& .MuiBadge-badge': {
                     bgcolor: 'var(--color-primary)',
-                    color: '#000',
+                    color: '#fff',
                     fontSize: '0.65rem',
                     fontWeight: 700,
                     minWidth: 16,

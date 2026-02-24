@@ -6,6 +6,7 @@ import { useAuth } from './AuthContext'
 import NotificationToast from '../components/NotificationToast'
 
 interface NotificationData {
+    id?: string
     title: string
     body: string
     link?: string
@@ -17,6 +18,7 @@ interface NotificationsContextType {
     unreadCount: number
     refreshUnreadCount: () => Promise<void>
     showNotification: (data: NotificationData) => void
+    markAsRead: (id: string) => Promise<void>
 }
 
 const NotificationsContext = createContext<NotificationsContextType | undefined>(undefined)
@@ -72,49 +74,44 @@ export const NotificationsProvider = ({ children }: { children: ReactNode }) => 
 
             socket = io(wsUrl, {
                 transports: ['websocket', 'polling'],
+                query: {
+                    tenantId: user.tenantId
+                }
             })
 
             socket.on('connect', () => {
                 console.log('[NotificationsContext] WebSocket connected:', socket?.id)
-                // Register user with their ID
-                if (user?.id) {
-                    socket?.emit('register-user', user.id)
-                }
             })
 
             socket.on('connect_error', (err: any) => {
                 console.error('[NotificationsContext] WebSocket connection error:', err)
             })
 
-            socket.on('notification', (data: any) => {
-                console.log('[NotificationsContext] Notification received via WS:', data)
+            // Evento disparado pelo api-concordia
+            socket.on('nova_notificacao', (data: any) => {
+                console.log('[NotificationsContext] Nova notificação via WS:', data)
+
+                // Atualiza o contador de não lidas
                 refreshUnreadCount()
 
-                // Show toast if data has title/body
-                if (data) {
-                    // Extract link from actions if available
-                    let link = undefined;
-                    if (data.actions && Array.isArray(data.actions) && data.actions.length > 0) {
-                        const navigateAction = data.actions.find((a: any) => a.action === 'navigate');
-                        if (navigateAction) link = navigateAction.url;
-                    } else if (data.data?.actions) {
-                        // Handle nested data structure if necessary
-                        const navigateAction = data.data.actions.find((a: any) => a.action === 'navigate');
-                        if (navigateAction) link = navigateAction.url;
-                    }
+                // Verifica se o usuário tem a nova funcionalidade de receber alertas
+                const hasAlertPermission = permissions.includes('erp:notificacoes:receber-alertas')
 
-                    // Fallback to simpler structure
-                    const title = data.title || (data.data && data.data.title) || 'Nova Notificação';
-                    const body = data.body || (data.data && data.data.body) || 'Você tem uma nova notificação';
-
-                    if (title) {
-                        showNotification({
-                            title,
-                            body,
-                            link
-                        })
-                    }
+                if (hasAlertPermission && data) {
+                    showNotification({
+                        id: data.uuid || data.id,
+                        title: data.titulo || 'Nova Notificação',
+                        body: data.mensagem || 'Você recebeu um novo alerta.',
+                        link: data.tipo === 'novo_pedido' ? `/pedidos/comandas?id=${data.dataId}` : undefined
+                    })
                 }
+            })
+
+            // Fallback para o evento antigo 'notification' caso ainda seja usado por outros serviços
+            socket.on('notification', (data: any) => {
+                console.log('[NotificationsContext] Notification received (legacy):', data)
+                refreshUnreadCount()
+                // ... legacy logic if needed
             })
 
             socket.on('disconnect', (reason: any) => {
@@ -131,17 +128,28 @@ export const NotificationsProvider = ({ children }: { children: ReactNode }) => 
         }
     }, [refreshUnreadCount, user, showNotification])
 
+    const markAsRead = useCallback(async (id: string) => {
+        try {
+            await comunicacaoService.markAsRead(id)
+            await refreshUnreadCount()
+        } catch (err) {
+            console.error('Failed to mark notification as read:', err)
+        }
+    }, [refreshUnreadCount])
+
     return (
         <NotificationsContext.Provider
             value={{
                 unreadCount,
                 refreshUnreadCount,
-                showNotification
+                showNotification,
+                markAsRead
             }}
         >
             {children}
             {activeNotification && (
                 <NotificationToast
+                    id={activeNotification.id}
                     title={activeNotification.title}
                     message={activeNotification.body}
                     link={activeNotification.link}

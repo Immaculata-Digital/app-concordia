@@ -177,7 +177,8 @@
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.notification-page-item:hover .notification-desktop-action {
+.notification-page-item:hover .notification-desktop-action,
+.notification-page-item.unread .notification-desktop-action {
     opacity: 1;
     transform: scale(1);
 }
@@ -221,7 +222,7 @@
     color: #000;
 }
 
-@media (width <= 768px) {
+@media (width <=768px) {
     .notification-page-item {
         padding: 16px;
     }

@@ -11,6 +11,17 @@ export const useMesasList = () => {
         }
     })
 }
+export const useMesa = (uuid: string | null) => {
+    return useQuery({
+        queryKey: ['mesa', uuid],
+        queryFn: async () => {
+            if (!uuid) return null
+            const data = await mesaService.getById(uuid)
+            return data
+        },
+        enabled: !!uuid
+    })
+}
 
 export const useCreateMesa = () => {
     const queryClient = useQueryClient()
@@ -39,6 +50,17 @@ export const useDeleteMesa = () => {
         mutationFn: (uuid: string) => mesaService.remove(uuid),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['mesas'] })
+        }
+    })
+}
+
+export const useCloseMesa = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: (uuid: string) => mesaService.fechar(uuid),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['mesas'] })
+            queryClient.invalidateQueries({ queryKey: ['comandas'] })
         }
     })
 }

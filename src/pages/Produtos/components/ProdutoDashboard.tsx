@@ -106,7 +106,14 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
                 precos: updatePrecos,
                 seo: updateSeo
             }[compType]
-            await mut.mutateAsync({ id: produto.uuid, data })
+
+            // Ensure tenantId is present in the payload
+            const payload = {
+                ...data,
+                tenantId: data.tenantId || data.tenant_id || produto.tenant_id
+            }
+
+            await mut.mutateAsync({ id: produto.uuid, data: payload })
             setCompType(null)
             setSnackbar({ open: true, message: 'Sucesso!', severity: 'success' })
         } catch (error) {
@@ -117,7 +124,13 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
     const handleAddSub = async (data: any) => {
         if (!produto || !subType) return
         try {
-            await addSubMutation[subType].mutateAsync({ id: produto.uuid, data })
+            // Ensure tenantId is present in the payload
+            const payload = {
+                ...data,
+                tenantId: data.tenantId || data.tenant_id || produto.tenant_id
+            }
+
+            await addSubMutation[subType].mutateAsync({ id: produto.uuid, data: payload })
             setSubType(null)
             setSnackbar({ open: true, message: 'Adicionado!', severity: 'success' })
         } catch (error) {
@@ -340,8 +353,20 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
             items={produto?.media || []}
             loading={loading}
             keyExtractor={(item) => item.uuid}
-            renderIcon={() => <Box className="dashboard-icon-badge"><ImageIcon /></Box>}
-            renderText={(item) => item.url || item.arquivo}
+            renderIcon={(item) => (
+                <Box className="dashboard-icon-badge" sx={{ overflow: 'hidden', p: 0 }}>
+                    {(item.tipo_code === 'imagem' || item.arquivo?.startsWith('data:image')) ? (
+                        <img
+                            src={item.arquivo || item.url}
+                            alt={item.file_name}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                    ) : (
+                        <ImageIcon />
+                    )}
+                </Box>
+            )}
+            renderText={(item) => item.file_name || item.url || 'Arquivo sem nome'}
             renderSecondaryText={(item) => `Ordem: ${item.ordem}`}
             onAdd={() => setSubType('media')}
             onDelete={(item) => handleDeleteSub('media', item)}

@@ -1,3 +1,5 @@
+import { api } from './api'
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3001/api'
 
 export type ComunicacaoDTO = {
@@ -86,6 +88,7 @@ export type NotificationDTO = {
   currentStatusState: 'read' | 'unread'
   categoryName?: string
   categoryIcon?: string
+  link?: string
 }
 
 export type ListNotificationsResponse = {
@@ -124,20 +127,7 @@ const listNotifications = (page = 1, limit = 10, onlyUnread = false, search?: st
 }
 
 const getUnreadCount = () => {
-  const token = localStorage.getItem('marshall_access_token')
-  return fetch(`${API_BASE_URL}/notifications/unread-count`, {
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-  }).then(async (res) => {
-    if (!res.ok) {
-      const error = await res.json().catch(() => ({ message: `Erro ${res.status}` }))
-      throw new Error(error.message || `Erro ${res.status}`)
-    }
-    return res.json() as Promise<{ count: number }>
-  })
+  return api.get<{ count: number }>('/notifications/unread-count')
 }
 
 const listNotificationCategories = () => {

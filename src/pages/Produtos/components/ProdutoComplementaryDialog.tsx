@@ -4,6 +4,7 @@ import { Grid } from '@mui/material'
 import { TableCardModal } from '../../../components/Modals'
 import TextPicker from '../../../components/TextPicker'
 import SelectPicker from '../../../components/SelectPicker'
+import NumberPicker from '../../../components/NumberPicker'
 import { getAccessMode, getContextualAccessMode, canEdit } from '../../../utils/accessControl'
 import { useAuth } from '../../../context/AuthContext'
 
@@ -94,44 +95,44 @@ const ProdutoComplementaryDialog = ({ open, onClose, onSave, type, initialData, 
                 return (
                     <Grid container spacing={2}>
                         <Grid size={{ xs: 6 }}>
-                            <TextPicker
+                            <NumberPicker
                                 label="Preço de Venda"
-                                value={form.preco || ''}
+                                value={form.preco}
                                 onChange={(val) => setForm({ ...form, preco: val })}
-                                type="number"
+                                format="currency"
                                 fullWidth
                                 required
-                                accessMode={getContextualAccessMode(accessMode, true)}
+                                disabled={!canEdit(accessMode)}
                             />
                         </Grid>
                         <Grid size={{ xs: 6 }}>
-                            <TextPicker
+                            <NumberPicker
                                 label="Preço de Custo"
-                                value={form.preco_custo || ''}
+                                value={form.preco_custo}
                                 onChange={(val) => setForm({ ...form, preco_custo: val })}
-                                type="number"
+                                format="currency"
                                 fullWidth
-                                accessMode={getContextualAccessMode(accessMode, true)}
+                                disabled={!canEdit(accessMode)}
                             />
                         </Grid>
                         <Grid size={{ xs: 6 }}>
-                            <TextPicker
+                            <NumberPicker
                                 label="Preço Promocional"
-                                value={form.preco_promocional || ''}
+                                value={form.preco_promocional}
                                 onChange={(val) => setForm({ ...form, preco_promocional: val })}
-                                type="number"
+                                format="currency"
                                 fullWidth
-                                accessMode={getContextualAccessMode(accessMode, true)}
+                                disabled={!canEdit(accessMode)}
                             />
                         </Grid>
                         <Grid size={{ xs: 6 }}>
-                            <TextPicker
+                            <NumberPicker
                                 label="Valor Máximo"
-                                value={form.valor_max || ''}
+                                value={form.valor_max}
                                 onChange={(val) => setForm({ ...form, valor_max: val })}
-                                type="number"
+                                format="currency"
                                 fullWidth
-                                accessMode={getContextualAccessMode(accessMode, true)}
+                                disabled={!canEdit(accessMode)}
                             />
                         </Grid>
                     </Grid>

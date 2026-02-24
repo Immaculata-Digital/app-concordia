@@ -14,6 +14,7 @@ import { DashboardDnDGrid } from "../../components/Dashboard/DashboardDnDGrid";
 import { DashboardStack } from "../../components/Dashboard/DashboardStack";
 import { DashboardActionBar } from "../../components/Dashboard/DashboardActionBar";
 import { getAccessMode, isHidden } from "../../utils/accessControl";
+import { formatCurrency } from "../../utils/format";
 
 // Specialized Card Components
 import { DashboardKPIsCard } from "./components/DashboardKPIsCard";
@@ -83,14 +84,6 @@ const DashboardPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const formatCurrency = (value: number): string => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(value);
-  };
 
   const formatPercentage = (value: number, total: number): string => {
     if (total === 0) return "0%";

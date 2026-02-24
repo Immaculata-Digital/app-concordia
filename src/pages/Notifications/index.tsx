@@ -1,5 +1,6 @@
 
 import { useEffect, useState, useMemo, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Typography,
@@ -53,6 +54,7 @@ interface ExtendedNotification extends NotificationItem {
     priority?: boolean;
     categoryName?: string;
     categoryIcon?: string;
+    link?: string;
 }
 
 const CategoryBadge = ({ item, density }: { item: ExtendedNotification; density: string }) => {
@@ -137,6 +139,7 @@ const SwipeableNotificationItem = ({
     canMarkRead: boolean;
     canMarkUnread: boolean;
 }) => {
+    const navigate = useNavigate();
     const [dragX, setDragX] = useState(0);
     const [startX, setStartX] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -206,18 +209,21 @@ const SwipeableNotificationItem = ({
                         >
                             {item.title}
                         </Typography>
-                        <Typography
-                            variant="caption"
-                            sx={{
-                                color: 'var(--color-on-secondary)',
-                                fontWeight: 600,
-                                fontSize: '0.7rem',
-                                whiteSpace: 'nowrap',
-                                pt: 0.3
-                            }}
-                        >
-                            {formatTimestamp(item.timestamp)}
-                        </Typography>
+                        <Stack direction="row" spacing={0.5} alignItems="center">
+                            {item.read && <DoneAllIcon sx={{ fontSize: 14, color: 'var(--color-primary)', mt: 0.3 }} />}
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    color: 'var(--color-on-secondary)',
+                                    fontWeight: 600,
+                                    fontSize: '0.7rem',
+                                    whiteSpace: 'nowrap',
+                                    pt: 0.3
+                                }}
+                            >
+                                {formatTimestamp(item.timestamp)}
+                            </Typography>
+                        </Stack>
                     </Stack>
                 </Box>
             </Stack>
@@ -344,9 +350,13 @@ const SwipeableNotificationItem = ({
                                     fontFamily: 'var(--font-body)',
                                     fontSize: '0.675rem',
                                     minWidth: '42px', // Reserva espaço fixo para a data
-                                    textAlign: 'right'
+                                    textAlign: 'right',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 0.5
                                 }}
                             >
+                                {item.read && <DoneAllIcon sx={{ fontSize: 14, color: 'var(--color-primary)' }} />}
                                 {formatTimestamp(item.timestamp)}
                             </Typography>
                         </Stack>
@@ -411,9 +421,13 @@ const SwipeableNotificationItem = ({
                                         fontFamily: 'var(--font-body)',
                                         fontSize: '0.675rem',
                                         minWidth: '42px', // Reserva espaço fixo para a data
-                                        textAlign: 'right'
+                                        textAlign: 'right',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 0.5
                                     }}
                                 >
+                                    {item.read && <DoneAllIcon sx={{ fontSize: 14, color: 'var(--color-primary)' }} />}
                                     {formatTimestamp(item.timestamp)}
                                 </Typography>
                             </Stack>
@@ -487,8 +501,12 @@ const SwipeableNotificationItem = ({
                 elevation={0}
                 className={`notification-page-item notification-row-wrapper ${item.read ? '' : 'unread'} notification-item-animate`}
                 onClick={() => {
-                    // Removido o toggle automático de leitura ao clicar no card principal
-                    // como solicitado para dar mais controle via botões de ação e swipe.
+                    if (!item.read) {
+                        onToggleRead(item.id, true);
+                    }
+                    if (item.link) {
+                        navigate(item.link);
+                    }
                 }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -498,7 +516,7 @@ const SwipeableNotificationItem = ({
                     py: isMobile ? 2 : (density === 'compact' ? 1 : density === 'resumido' ? 1.75 : 3),
                     borderRadius: '10px',
                     border: '1px solid var(--color-border)',
-                    cursor: 'default', // Alterado de pointer pois o clique não tem ação principal agora
+                    cursor: item.link ? 'pointer' : 'default',
                     transition: isDragging ? 'none' : 'all 0.2s ease',
                     transform: dragX !== 0 ? `translateX(${dragX}px)` : 'scale(1)',
                     bgcolor: 'var(--color-surface)',
@@ -620,6 +638,7 @@ const NotificationsPage = () => {
         type: n.metadata?.type as any,
         user: n.metadata?.userName,
         avatar: n.metadata?.userAvatar,
+        link: n.link,
         actions: n.actions?.map(a => ({
             label: a.label,
             onClick: () => {

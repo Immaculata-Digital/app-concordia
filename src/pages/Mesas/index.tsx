@@ -3,8 +3,15 @@ import {
     Box,
     Chip,
     Snackbar,
-    Alert
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    Typography,
 } from '@mui/material'
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner'
 import TableCard from '../../components/TableCard'
 import type { TableCardColumn } from '../../components/TableCard'
 import { useAuth } from '../../context/AuthContext'
@@ -13,15 +20,16 @@ import {
     useMesasList,
     useCreateMesa,
     useUpdateMesa,
-    useDeleteMesa
+    useDeleteMesa,
 } from '../../hooks/queries/mesas'
 import MesaFormDialog from './components/MesaFormDialog'
+import MesaDashboard from './components/MesaDashboard'
 import { type MesaDTO } from '../../services/mesas'
 
 const STATUS_MAP: Record<string, { label: string, color: any }> = {
     LIVRE: { label: 'Livre', color: 'success' },
     OCUPADA: { label: 'Ocupada', color: 'error' },
-    RESERVADA: { label: 'Warning', color: 'warning' },
+    RESERVADA: { label: 'Reservada', color: 'warning' },
     MANUTENCAO: { label: 'Manutenção', color: 'default' }
 }
 
@@ -36,6 +44,10 @@ const Mesas = () => {
 
     const [formOpen, setFormOpen] = useState(false)
     const [selectedMesa, setSelectedMesa] = useState<MesaDTO | null>(null)
+    const [dashboardOpen, setDashboardOpen] = useState(false)
+    const [dashboardMesaId, setDashboardMesaId] = useState<string | null>(null)
+    const [qrOpen, setQrOpen] = useState(false)
+    const [qrMesa, setQrMesa] = useState<MesaDTO | null>(null)
     const [snackbar, setSnackbar] = useState<{ open: boolean, message: string, severity: 'success' | 'error' }>({
         open: false,
         message: '',
@@ -55,6 +67,17 @@ const Mesas = () => {
                     size="small"
                 />
             )
+        }
+    ], [])
+
+    const rowActions = useMemo(() => [
+        {
+            label: 'Gerar QR Code',
+            icon: <QrCodeScannerIcon fontSize="small" />,
+            onClick: (row: MesaDTO) => {
+                setQrMesa(row)
+                setQrOpen(true)
+            }
         }
     ], [])
 
@@ -95,6 +118,11 @@ const Mesas = () => {
         }
     }
 
+    const handleRowClick = (row: MesaDTO) => {
+        setDashboardMesaId(row.uuid)
+        setDashboardOpen(true)
+    }
+
     return (
         <Box p={0}>
             <TableCard
@@ -105,8 +133,50 @@ const Mesas = () => {
                 onAddClick={handleAdd}
                 onEdit={(id) => handleEdit(mesas.find(m => m.uuid === id)!)}
                 onDelete={handleDelete}
+                rowActions={rowActions}
+                onRowClick={handleRowClick}
                 accessMode={accessMode as any}
             />
+
+            <Dialog open={qrOpen} onClose={() => setQrOpen(false)} maxWidth="xs" fullWidth>
+                <DialogTitle>QR Code da Mesa {qrMesa?.numero}</DialogTitle>
+                <DialogContent sx={{ textAlign: 'center', py: 4 }}>
+                    {qrMesa && (
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                            <Box
+                                component="img"
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
+                                    `https://cardapio.marshalltds.com/?tenantId=${useAuth().user?.tenantId}&mesaUuid=${qrMesa.uuid}`
+                                )}`}
+                                sx={{ width: 250, height: 250, border: '1px solid #eee', p: 1, borderRadius: 2 }}
+                                alt="Mesa QR Code"
+                            />
+                            <Typography variant="body2" color="textSecondary">
+                                Aponte a câmera para acessar o cardápio desta mesa
+                            </Typography>
+                            <Box sx={{ mt: 2, p: 2, bgcolor: '#f5f5f5', borderRadius: 1, width: '100%', wordBreak: 'break-all' }}>
+                                <Typography variant="caption" sx={{ fontFamily: 'monospace' }}>
+                                    {`https://cardapio.marshalltds.com/?tenantId=${useAuth().user?.tenantId}&mesaUuid=${qrMesa.uuid}`}
+                                </Typography>
+                            </Box>
+                        </Box>
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setQrOpen(false)}>Fechar</Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            const url = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(
+                                `https://cardapio.marshalltds.com/?tenantId=${useAuth().user?.tenantId}&mesaUuid=${qrMesa?.uuid}`
+                            )}`
+                            window.open(url, '_blank')
+                        }}
+                    >
+                        Imprimir / Baixar
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
             <MesaFormDialog
                 open={formOpen}
@@ -115,6 +185,13 @@ const Mesas = () => {
                 title="Mesa"
                 initialData={selectedMesa}
                 saving={createMutation.isPending || updateMutation.isPending}
+                accessMode={accessMode as any}
+            />
+
+            <MesaDashboard
+                mesaId={dashboardMesaId}
+                open={dashboardOpen}
+                onClose={() => setDashboardOpen(false)}
                 accessMode={accessMode as any}
             />
 

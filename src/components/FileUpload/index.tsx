@@ -58,7 +58,7 @@ const FileUpload = ({
     const [tempName, setTempName] = useState('')
     const [snackbar, setSnackbar] = useState<{ open: boolean, message: string }>({ open: false, message: '' })
 
-    const MAX_FILE_SIZE = 25 * 1024 * 1024 // 25MB
+    const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 
     // Initialize tempName from props when not editing
     useEffect(() => {

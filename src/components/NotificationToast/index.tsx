@@ -2,20 +2,26 @@ import { useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive'
 import { useNavigate } from 'react-router-dom'
+import { useNotifications } from '../../context/NotificationsContext'
 import './style.css'
-
 export interface NotificationToastProps {
+    id?: string
     title: string
     message: string
     link?: string
     onClose: () => void
 }
 
-const NotificationToast = ({ title, message, link, onClose }: NotificationToastProps) => {
+const NotificationToast = ({ id, title, message, link, onClose }: NotificationToastProps) => {
     const navigate = useNavigate()
+    const { markAsRead } = useNotifications()
     const [isExiting, setIsExiting] = useState(false)
 
-    const handleClick = () => {
+    const handleClick = async () => {
+        if (id) {
+            await markAsRead(id)
+        }
+
         if (link) {
             navigate(link)
         } else {

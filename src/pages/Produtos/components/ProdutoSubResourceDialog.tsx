@@ -19,9 +19,9 @@ interface ProdutoSubResourceDialogProps {
 }
 
 const MEDIA_TIPOS = [
-    { value: 'IMG', label: 'Imagem' },
-    { value: 'VID', label: 'Vídeo' },
-    { value: 'DOC', label: 'Documento' },
+    { value: 'imagem', label: 'Imagem' },
+    { value: 'video', label: 'Vídeo' },
+    { value: 'anexo', label: 'Anexo' },
 ]
 
 const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: ProdutoSubResourceDialogProps) => {
@@ -37,7 +37,7 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
 
     useEffect(() => {
         if (open) {
-            if (type === 'media') setForm({ tipo_code: 'IMG', ordem: 0 })
+            if (type === 'media') setForm({ tipo_code: 'imagem', ordem: 0 })
             else if (type === 'kit') setForm({ quantidade: 1 })
             else setForm({ grade: {} })
         }
@@ -55,7 +55,7 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
                         <Grid size={{ xs: 12 }}>
                             <SelectPicker
                                 label="Tipo de Mídia"
-                                value={form.tipo_code || 'IMG'}
+                                value={form.tipo_code || 'imagem'}
                                 onChange={(val) => setForm({ ...form, tipo_code: val })}
                                 options={MEDIA_TIPOS}
                                 fullWidth

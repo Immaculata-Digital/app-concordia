@@ -39,10 +39,14 @@ const update = (uuid: string, payload: UpdateMesaPayload) =>
 const remove = (uuid: string) =>
     api.delete<void>(`/mesas/${uuid}`)
 
+const fechar = (uuid: string) =>
+    api.post<{ message: string }>(`/mesas/${uuid}/fechar`)
+
 export const mesaService = {
     list,
     getById,
     create,
     update,
-    remove
+    remove,
+    fechar
 }
