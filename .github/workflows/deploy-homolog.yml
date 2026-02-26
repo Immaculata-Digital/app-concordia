@@ -78,6 +78,14 @@ jobs:
             --name ${IMAGE_NAME}-homolog \
             --restart unless-stopped \
             -p 5175:80 \
+            -e VITE_API_USUARIOS_URL='${{ secrets.VITE_API_USUARIOS_URL_HOMOLOG }}' \
+            -e VITE_API_CLIENTES_URL='${{ secrets.VITE_API_CLIENTES_URL_HOMOLOG }}' \
+            -e VITE_API_COMUNICACOES_URL='${{ secrets.VITE_API_COMUNICACOES_URL_HOMOLOG }}' \
+            -e VITE_API_CONTRATOS_URL='${{ secrets.VITE_API_CONTRATOS_URL_HOMOLOG }}' \
+            -e VITE_API_PESSOAS_URL='${{ secrets.VITE_API_PESSOAS_URL_HOMOLOG }}' \
+            -e VITE_API_CONTATOS_URL='${{ secrets.VITE_API_CONTATOS_URL_HOMOLOG }}' \
+            -e VITE_API_RELATORIOS_URL='${{ secrets.VITE_API_RELATORIOS_URL_HOMOLOG }}' \
+            -e VITE_WS_SERVICE_URL='${{ secrets.VITE_WS_SERVICE_URL_HOMOLOG }}' \
             ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog
 
       - name: Limpeza de imagens antigas
