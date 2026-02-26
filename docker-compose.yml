@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL_HOMOLOG}
         VITE_WS_SERVICE_BASE_URL: ${VITE_WS_SERVICE_BASE_URL_HOMOLOG}
         VITE_API_USUARIOS_URL: ${VITE_API_USUARIOS_URL_HOMOLOG}
         VITE_API_CLIENTES_URL: ${VITE_API_CLIENTES_URL_HOMOLOG}
@@ -34,6 +35,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL_MAIN}
         VITE_WS_SERVICE_BASE_URL: ${VITE_WS_SERVICE_BASE_URL_MAN}
         VITE_API_USUARIOS_URL: ${VITE_API_USUARIOS_URL_MAIN}
         VITE_API_CLIENTES_URL: ${VITE_API_CLIENTES_URL_MAIN}

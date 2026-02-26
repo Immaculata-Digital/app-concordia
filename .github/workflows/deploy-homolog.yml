@@ -40,6 +40,7 @@ jobs:
             --build-arg VITE_API_PESSOAS_URL='${{ secrets.VITE_API_PESSOAS_URL_HOMOLOG }}' \
             --build-arg VITE_API_CONTATOS_URL='${{ secrets.VITE_API_CONTATOS_URL_HOMOLOG }}' \
             --build-arg VITE_API_RELATORIOS_URL='${{ secrets.VITE_API_RELATORIOS_URL_HOMOLOG }}' \
+            --build-arg VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL_HOMOLOG }}' \
             --build-arg VITE_WS_SERVICE_URL='${{ secrets.VITE_WS_SERVICE_URL_HOMOLOG }}' \
             -t ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog .
 
@@ -87,6 +88,7 @@ jobs:
             -e VITE_API_CONTATOS_URL='${{ secrets.VITE_API_CONTATOS_URL_HOMOLOG }}' \
             -e VITE_API_RELATORIOS_URL='${{ secrets.VITE_API_RELATORIOS_URL_HOMOLOG }}' \
             -e VITE_WS_SERVICE_BASE_URL='${{ secrets.VITE_WS_SERVICE_BASE_URL_HOMOLOG }}' \
+            -e VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL_HOMOLOG }}' \
             -e VITE_WS_SERVICE_URL='${{ secrets.VITE_WS_SERVICE_URL_HOMOLOG }}' \
             ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:homolog
 
