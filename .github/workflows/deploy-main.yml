@@ -78,6 +78,14 @@ jobs:
             --name ${IMAGE_NAME}-main \
             --restart unless-stopped \
             -p 3175:80 \
+            -e VITE_API_USUARIOS_BASE_URL='${{ secrets.VITE_API_USUARIOS_BASE_URL_MAIN }}' \
+            -e VITE_API_CLIENTES_BASE_URL='${{ secrets.VITE_API_CLIENTES_BASE_URL_MAIN }}' \
+            -e VITE_API_COMUNICACOES_BASE_URL='${{ secrets.VITE_API_COMUNICACOES_BASE_URL_MAIN }}' \
+            -e VITE_API_CONTRATOS_BASE_URL='${{ secrets.VITE_API_CONTRATOS_BASE_URL_MAIN }}' \
+            -e VITE_API_PESSOAS_BASE_URL='${{ secrets.VITE_API_PESSOAS_BASE_URL_MAIN }}' \
+            -e VITE_API_CONTATOS_BASE_URL='${{ secrets.VITE_API_CONTATOS_BASE_URL_MAIN }}' \
+            -e VITE_API_RELATORIOS_BASE_URL='${{ secrets.VITE_API_RELATORIOS_BASE_URL_MAIN }}' \
+            -e VITE_WS_SERVICE_BASE_URL='${{ secrets.VITE_WS_SERVICE_BASE_URL_MAIN }}' \
             ghcr.io/${REPO_OWNER_LOWER}/${IMAGE_NAME}:latest
 
       - name: Limpeza de imagens antigas
