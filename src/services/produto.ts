@@ -136,6 +136,10 @@ export const produtoService = {
         await api.post(`/produtos/${id}/variacoes`, variacao)
     },
 
+    async updateMedia(mediaId: string, media: any): Promise<void> {
+        await api.put(`/produtos/media/${mediaId}`, media)
+    },
+
     async deleteVariacao(id: string): Promise<void> {
         await api.delete(`/produtos/variacoes/${id}`)
     }

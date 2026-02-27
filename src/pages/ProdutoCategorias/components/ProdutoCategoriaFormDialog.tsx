@@ -14,7 +14,7 @@ interface ProdutoCategoriaFormDialogProps {
     open: boolean
     onClose: () => void
     categoriaToEdit?: ProdutoCategoriaDTO | null
-    onSuccess: (msg: string) => void
+    onSuccess: (msg: string, category?: ProdutoCategoriaDTO) => void
     onError: (msg: string) => void
     accessMode: AccessMode
 }
@@ -73,11 +73,11 @@ export function ProdutoCategoriaFormDialog({
 
         try {
             if (isEdit) {
-                await updateMutation.mutateAsync({ uuid: categoriaToEdit.uuid, payload: form })
-                onSuccess('Categoria atualizada')
+                const updated = await updateMutation.mutateAsync({ uuid: categoriaToEdit.uuid, payload: form })
+                onSuccess('Categoria atualizada', updated)
             } else {
-                await createMutation.mutateAsync(form)
-                onSuccess('Categoria criada')
+                const created = await createMutation.mutateAsync(form)
+                onSuccess('Categoria criada', created)
             }
             onClose()
         } catch (error) {

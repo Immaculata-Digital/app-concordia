@@ -18,6 +18,8 @@ import { getAccessMode, canVisualizeItem } from '../../utils/accessControl'
 import ProdutoDashboard from './components/ProdutoDashboard'
 import ProdutoFormDialog from './components/ProdutoFormDialog'
 import { useProdutosList, useCreateProduto, useDeleteProduto } from '../../hooks/queries/produtos'
+import { useCreateCardapioItem } from '../../hooks/queries/cardapioItens'
+import { useCreateRecompensa } from '../../hooks/queries/recompensas'
 
 type ProdutoRow = TableCardRow & {
     id: string
@@ -44,6 +46,8 @@ const ProdutosPage = () => {
 
     const createMutation = useCreateProduto()
     const deleteMutation = useDeleteProduto()
+    const createCardapioMutation = useCreateCardapioItem()
+    const createRecompensaMutation = useCreateRecompensa()
 
     const [toast, setToast] = useState<{ open: boolean; message: string; severity?: 'success' | 'error' | 'warning' | 'info' }>({ open: false, message: '' })
 
@@ -64,7 +68,33 @@ const ProdutosPage = () => {
 
     const handleCreate = async (data: any) => {
         try {
-            await createMutation.mutateAsync(data)
+            const {
+                linkModules,
+                cardapio_ordem,
+                cardapio_ativo,
+                recompensa_pontos,
+                recompensa_voucher,
+                ...productData
+            } = data
+
+            const created = await createMutation.mutateAsync(productData)
+            
+            if (linkModules?.includes('cardapio')) {
+                await createCardapioMutation.mutateAsync({
+                    produtoId: created.uuid,
+                    ordem: Number(cardapio_ordem),
+                    ativo: cardapio_ativo
+                })
+            }
+            if (linkModules?.includes('recompensa')) {
+                await createRecompensaMutation.mutateAsync({
+                    produto_id: created.uuid,
+                    tenant_id: created.tenant_id,
+                    qtd_pontos_resgate: Number(recompensa_pontos),
+                    voucher_digital: recompensa_voucher
+                })
+            }
+
             setToast({ open: true, message: 'Produto criado com sucesso', severity: 'success' })
             setCreateModalOpen(false)
         } catch (err) {

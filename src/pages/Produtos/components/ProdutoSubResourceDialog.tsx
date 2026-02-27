@@ -16,6 +16,7 @@ interface ProdutoSubResourceDialogProps {
     onSave: (data: any) => void
     type: 'media' | 'kit' | 'variacoes'
     saving: boolean
+    initialData?: any
 }
 
 const MEDIA_TIPOS = [
@@ -24,7 +25,7 @@ const MEDIA_TIPOS = [
     { value: 'anexo', label: 'Anexo' },
 ]
 
-const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: ProdutoSubResourceDialogProps) => {
+const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving, initialData }: ProdutoSubResourceDialogProps) => {
     const { permissions } = useAuth()
     const accessMode = getAccessMode(permissions, 'erp:produtos')
     const [form, setForm] = useState<any>({})
@@ -37,11 +38,15 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
 
     useEffect(() => {
         if (open) {
-            if (type === 'media') setForm({ tipo_code: 'imagem', ordem: 0 })
-            else if (type === 'kit') setForm({ quantidade: 1 })
-            else setForm({ grade: {} })
+            if (initialData) {
+                setForm(initialData)
+            } else {
+                if (type === 'media') setForm({ tipo_code: 'imagem', ordem: 1 })
+                else if (type === 'kit') setForm({ quantidade: 1 })
+                else setForm({ grade: {} })
+            }
         }
-    }, [open, type])
+    }, [open, type, initialData])
 
     const handleSave = () => {
         onSave(form)
@@ -77,11 +82,17 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
                                 value={form.arquivo || ''}
                                 fileName={form.file_name || ''}
                                 fileSize={form.file_size || 0}
+                                multiple={true}
                                 onChange={(val: string, meta: any) => setForm({
                                     ...form,
                                     arquivo: val,
                                     file_name: meta ? meta.name : form.file_name,
-                                    file_size: meta ? meta.size : form.file_size
+                                    file_size: meta ? meta.size : form.file_size,
+                                    _multiple: undefined
+                                })}
+                                onMultipleChange={(files) => setForm({
+                                    ...form,
+                                    _multiple: files
                                 })}
                                 onFileNameChange={(newName: string) => setForm({
                                     ...form,
@@ -96,8 +107,8 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
                         <Grid size={{ xs: 6 }}>
                             <TextPicker
                                 label="Ordem de Exibição"
-                                value={form.ordem?.toString() || '0'}
-                                onChange={(val) => setForm({ ...form, ordem: parseInt(val) || 0 })}
+                                value={form.ordem?.toString() || '1'}
+                                onChange={(val) => setForm({ ...form, ordem: parseInt(val) || 1 })}
                                 type="number"
                                 fullWidth
                                 accessMode={getContextualAccessMode(accessMode, false)}
@@ -164,9 +175,9 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
     }
 
     const titles = {
-        media: 'Adicionar Mídia',
-        kit: 'Adicionar Componente ao Kit',
-        variacoes: 'Adicionar Variação'
+        media: initialData ? 'Editar Mídia' : 'Adicionar Mídia',
+        kit: initialData ? 'Editar Componente' : 'Adicionar Componente ao Kit',
+        variacoes: initialData ? 'Editar Variação' : 'Adicionar Variação'
     }
 
     return (
@@ -175,7 +186,7 @@ const ProdutoSubResourceDialog = ({ open, onClose, onSave, type, saving }: Produ
             onClose={onClose}
             onSave={handleSave}
             title={titles[type]}
-            mode="add"
+            mode={initialData ? 'edit' : 'add'}
             saving={saving}
             canSave={canCreate(accessMode)}
             maxWidth="sm"

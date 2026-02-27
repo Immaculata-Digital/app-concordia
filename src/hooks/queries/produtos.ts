@@ -115,3 +115,18 @@ export const useDeleteProdutoSubResource = (type: 'ficha-tecnica' | 'media' | 'k
         }
     })
 }
+
+export const useUpdateProdutoSubResource = (type: 'ficha-tecnica' | 'media' | 'kit' | 'variacoes') => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: ({ id: _id, itemId, data }: { id: string; itemId: string; data: any }) => {
+            switch (type) {
+                case 'media': return produtoService.updateMedia(itemId, data)
+                default: throw new Error('Update not implemented for this type yet')
+            }
+        },
+        onSuccess: (_data, { id }) => {
+            queryClient.invalidateQueries({ queryKey: produtoKeys.detail(id) })
+        }
+    })
+}

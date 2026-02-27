@@ -31,6 +31,7 @@ import {
 import { DashboardTopCard } from '../../../components/Dashboard/DashboardTopCard'
 import { DashboardBodyCard } from '../../../components/Dashboard/DashboardBodyCard'
 import { DashboardBodyCardList } from '../../../components/Dashboard/DashboardBodyCardList'
+import { DashboardBodyCardDnDList } from '../../../components/Dashboard/DashboardBodyCardDnDList'
 import { DashboardModal } from '../../../components/Modals'
 import { DashboardDnDGrid } from '../../../components/Dashboard/DashboardDnDGrid'
 import { DashboardStack } from '../../../components/Dashboard/DashboardStack'
@@ -39,7 +40,8 @@ import {
     useUpdateProduto,
     useUpdateProdutoComplementary,
     useAddProdutoSubResource,
-    useDeleteProdutoSubResource
+    useDeleteProdutoSubResource,
+    useUpdateProdutoSubResource
 } from '../../../hooks/queries/produtos'
 import ProdutoFormDialog from './ProdutoFormDialog'
 import ProdutoComplementaryDialog from './ProdutoComplementaryDialog'
@@ -74,11 +76,15 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
         'variacoes': useAddProdutoSubResource('variacoes')
     }
 
-    const delSubMutation = {
+    const delSubMutation: any = {
         'ficha-tecnica': useDeleteProdutoSubResource('ficha-tecnica'),
         'media': useDeleteProdutoSubResource('media'),
         'kit': useDeleteProdutoSubResource('kit'),
-        'variacoes': useDeleteProdutoSubResource('variacoes')
+        'variacoes': useDeleteProdutoSubResource('variacoes'),
+    }
+
+    const updateSubMutation: any = {
+        'media': useUpdateProdutoSubResource('media'),
     }
 
     // Modal States
@@ -86,6 +92,7 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
     const [compType, setCompType] = useState<'fiscal' | 'logistica' | 'precos' | 'seo' | null>(null)
     const [fichaOpen, setFichaOpen] = useState(false)
     const [subType, setSubType] = useState<'media' | 'kit' | 'variacoes' | null>(null)
+    const [subEditingItem, setSubEditingItem] = useState<any>(null)
 
     const [snackbar, setSnackbar] = useState<{ open: boolean, message: string, severity: 'success' | 'error' | 'warning' | 'info' }>({
         open: false,
@@ -124,17 +131,71 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
     const handleAddSub = async (data: any) => {
         if (!produto || !subType) return
         try {
-            // Ensure tenantId is present in the payload
-            const payload = {
-                ...data,
-                tenantId: data.tenantId || data.tenant_id || produto.tenant_id
+            if (subEditingItem) {
+                // Update mode
+                await updateSubMutation[subType].mutateAsync({ 
+                    id: produto.uuid, 
+                    itemId: subEditingItem.uuid, 
+                    data: {
+                        ...data,
+                        tenantId: data.tenantId || data.tenant_id || produto.tenant_id
+                    }
+                })
+                setSnackbar({ open: true, message: 'Atualizado com sucesso!', severity: 'success' })
+            } else if (data._multiple && Array.isArray(data._multiple)) {
+                // Multi-file upload mode
+                const files = data._multiple
+                let currentMaxOrder = Math.max(0, ...(produto.media || []).map((m: any) => m.ordem || 0))
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i]
+                    const payload = {
+                        ...data,
+                        arquivo: file.base64,
+                        file_name: file.name,
+                        file_size: file.size,
+                        ordem: currentMaxOrder + i + 1,
+                        tenantId: data.tenantId || data.tenant_id || produto.tenant_id,
+                        _multiple: undefined // Clean internal flag
+                    }
+                    await addSubMutation[subType].mutateAsync({ id: produto.uuid, data: payload })
+                }
+                setSnackbar({ open: true, message: 'Adicionados com sucesso!', severity: 'success' })
+            } else {
+                // Single file or other subresource
+                const payload = {
+                    ...data,
+                    tenantId: data.tenantId || data.tenant_id || produto.tenant_id
+                }
+                await addSubMutation[subType].mutateAsync({ id: produto.uuid, data: payload })
+                setSnackbar({ open: true, message: 'Adicionado com sucesso!', severity: 'success' })
             }
-
-            await addSubMutation[subType].mutateAsync({ id: produto.uuid, data: payload })
             setSubType(null)
-            setSnackbar({ open: true, message: 'Adicionado!', severity: 'success' })
+            setSubEditingItem(null)
         } catch (error) {
-            setSnackbar({ open: true, message: 'Erro ao adicionar', severity: 'error' })
+            console.error('Error adding/updating sub-resource:', error)
+            setSnackbar({ open: true, message: 'Erro ao processar recurso(s)', severity: 'error' })
+        }
+    }
+
+    const handleReorderMedia = async (newItems: any[]) => {
+        if (!produto) return
+        try {
+            const updates = newItems.map((item, index) => {
+                if (item.ordem !== index) {
+                    return updateSubMutation['media'].mutateAsync({
+                        id: produto.uuid,
+                        itemId: item.uuid,
+                        data: { ...item, ordem: index + 1 }
+                    })
+                }
+                return Promise.resolve()
+            })
+            await Promise.all(updates)
+            setSnackbar({ open: true, message: 'Ordem das mídias atualizada!', severity: 'success' })
+        } catch (error) {
+            console.error('Error reordering media:', error)
+            setSnackbar({ open: true, message: 'Erro ao reordenar mídias.', severity: 'error' })
         }
     }
 
@@ -347,29 +408,46 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
     )
 
     const mediaCard = (
-        <DashboardBodyCardList<any>
+        <DashboardBodyCardDnDList<any>
             title="Mídias e Arquivos"
             accessMode={accessMode}
-            items={produto?.media || []}
+            items={[...(produto?.media || [])].sort((a: any, b: any) => (a.ordem || 0) - (b.ordem || 0))}
             loading={loading}
-            keyExtractor={(item) => item.uuid}
-            renderIcon={(item) => (
-                <Box className="dashboard-icon-badge" sx={{ overflow: 'hidden', p: 0 }}>
-                    {(item.tipo_code === 'imagem' || item.arquivo?.startsWith('data:image')) ? (
-                        <img
-                            src={item.arquivo || item.url}
+            keyExtractor={(item: any) => item.uuid}
+            renderIcon={(item: any) => {
+                const source = item.arquivo || item.url
+                if ((item.tipo_code === 'imagem' || item.tipo_code === 'IMG') && source) {
+                    return (
+                        <Box
+                            component="img"
+                            src={source}
                             alt={item.file_name}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            sx={{
+                                width: { xs: 32, sm: 36 },
+                                height: { xs: 32, sm: 36 },
+                                borderRadius: 0.5,
+                                objectFit: 'cover',
+                                border: '1px solid',
+                                borderColor: 'divider',
+                                flexShrink: 0
+                            }}
                         />
-                    ) : (
-                        <ImageIcon />
-                    )}
-                </Box>
-            )}
-            renderText={(item) => item.file_name || item.url || 'Arquivo sem nome'}
-            renderSecondaryText={(item) => `Ordem: ${item.ordem}`}
-            onAdd={() => setSubType('media')}
-            onDelete={(item) => handleDeleteSub('media', item)}
+                    )
+                }
+                return <Box className="dashboard-icon-badge"><ImageIcon /></Box>
+            }}
+            renderText={(item: any) => item.file_name || item.url || item.arquivo || 'Arquivo sem nome'}
+            renderSecondaryText={(item: any) => `Ordem: ${item.ordem || 1} | Tipo: ${item.tipo_code}`}
+            onAdd={() => {
+                setSubEditingItem(null)
+                setSubType('media')
+            }}
+            onEdit={(item: any) => {
+                setSubEditingItem(item)
+                setSubType('media')
+            }}
+            onDelete={(item: any) => handleDeleteSub('media', item)}
+            onReorder={handleReorderMedia}
             emptyText="Nenhuma mídia vinculada."
         />
     )
@@ -588,10 +666,14 @@ const ProdutoDashboard = ({ open, onClose, produtoId }: ProdutoDashboardProps) =
                     {subType && (
                         <ProdutoSubResourceDialog
                             open={!!subType}
-                            onClose={() => setSubType(null)}
+                            onClose={() => {
+                                setSubType(null)
+                                setSubEditingItem(null)
+                            }}
                             type={subType}
+                            initialData={subEditingItem}
                             onSave={handleAddSub}
-                            saving={subType ? addSubMutation[subType].isPending : false}
+                            saving={subType ? (subEditingItem ? updateSubMutation[subType]?.isPending : addSubMutation[subType].isPending) : false}
                         />
                     )}
                 </>

@@ -11,7 +11,9 @@ type FileUploadProps = {
     fileName?: string
     fileSize?: number | string
     onChange: (base64: string, meta?: { name: string, size: number }) => void
+    onMultipleChange?: (files: Array<{ base64: string, name: string, size: number }>) => void
     onFileNameChange?: (name: string) => void
+    multiple?: boolean
     fullWidth?: boolean
     required?: boolean
     accept?: string
@@ -29,7 +31,9 @@ const FileUpload = ({
     fileName,
     fileSize,
     onChange,
+    onMultipleChange,
     onFileNameChange,
+    multiple = false,
     fullWidth = false,
     required = false,
     accept = "image/*,application/pdf",
@@ -56,6 +60,8 @@ const FileUpload = ({
     const [confirmDelete, setConfirmDelete] = useState(false)
     const [isRenaming, setIsRenaming] = useState(false)
     const [tempName, setTempName] = useState('')
+    const [isDragging, setIsDragging] = useState(false)
+    const [selectedFiles, setSelectedFiles] = useState<Array<{ base64: string, name: string, size: number }>>([])
     const [snackbar, setSnackbar] = useState<{ open: boolean, message: string }>({ open: false, message: '' })
 
     const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
@@ -67,40 +73,112 @@ const FileUpload = ({
         }
     }, [fileName, isRenaming])
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-        if (file) {
-            if (file.size > MAX_FILE_SIZE) {
-                setSnackbar({
-                    open: true,
-                    message: `O arquivo excede o limite de ${formatSize(MAX_FILE_SIZE)}. Tamanho do arquivo: ${formatSize(file.size)}`
-                })
+    const readFileAsBase64 = (file: File): Promise<{ base64: string, name: string, size: number }> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onload = () => resolve({
+                base64: reader.result as string,
+                name: file.name,
+                size: file.size
+            })
+            reader.onerror = reject
+            reader.readAsDataURL(file)
+        })
+    }
+
+    const FILE_GROUPS = {
+        image: ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'],
+        video: ['.mp4', '.webm', '.ogg', '.mov'],
+        document: ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.txt', '.csv']
+    }
+
+    const getFileGroup = (fileName: string): keyof typeof FILE_GROUPS | null => {
+        const ext = fileName.toLowerCase().substring(fileName.lastIndexOf('.'))
+        if (FILE_GROUPS.image.includes(ext)) return 'image'
+        if (FILE_GROUPS.video.includes(ext)) return 'video'
+        if (FILE_GROUPS.document.includes(ext)) return 'document'
+        return null
+    }
+
+    const processFiles = async (filesList: FileList | File[]) => {
+        const files = Array.from(filesList)
+        if (files.length === 0) return
+
+        // 1. Check size for all files
+        const oversizedFiles = files.filter(f => f.size > MAX_FILE_SIZE)
+        if (oversizedFiles.length > 0) {
+            setSnackbar({
+                open: true,
+                message: `Pelo menos um arquivo excede o limite de ${formatSize(MAX_FILE_SIZE)}.`
+            })
+            if (inputRef.current) inputRef.current.value = ''
+            return
+        }
+
+        // 2. Validate grouping (Same category for all files)
+        if (multiple && files.length > 1) {
+            const firstGroup = getFileGroup(files[0].name)
+            
+            if (!firstGroup) {
+                setSnackbar({ open: true, message: 'Extensão do primeiro arquivo não reconhecida.' })
                 if (inputRef.current) inputRef.current.value = ''
                 return
             }
 
-            setLoading(true)
-            const reader = new FileReader()
-            readerRef.current = reader
-
-            reader.onloadend = () => {
-                const base64String = reader.result as string
-                // Pass metadata up
-                onChange(base64String, { name: file.name, size: file.size })
-                setLoading(false)
-                readerRef.current = null
-            }
-            // abort is handled by user action, onerror/onabort usually don't need explicit loading=false if we control the abort trigger
-            reader.onabort = () => {
-                setLoading(false)
-                readerRef.current = null
+            const inconsistentFiles = files.filter(f => getFileGroup(f.name) !== firstGroup)
+            if (inconsistentFiles.length > 0) {
+                const groupLabels: Record<string, string> = { image: 'Imagens', video: 'Vídeos', document: 'Documentos' }
+                setSnackbar({ 
+                    open: true, 
+                    message: `Mistura de tipos detectada. Selecione apenas ${groupLabels[firstGroup] || firstGroup}.` 
+                })
                 if (inputRef.current) inputRef.current.value = ''
+                return
             }
-            reader.onerror = () => {
-                setLoading(false)
-                readerRef.current = null
+        }
+
+        setLoading(true)
+
+        try {
+            if (multiple && onMultipleChange) {
+                const results = await Promise.all(files.map(readFileAsBase64))
+                setSelectedFiles(results) // Local preview
+                onMultipleChange(results)
+            } else {
+                // Single file mode (legacy)
+                const file = files[0]
+                const result = await readFileAsBase64(file)
+                onChange(result.base64, { name: result.name, size: result.size })
             }
-            reader.readAsDataURL(file)
+        } catch (error) {
+            console.error('Error reading files:', error)
+            setSnackbar({ open: true, message: 'Erro ao processar arquivo(s).' })
+        } finally {
+            setLoading(false)
+            if (inputRef.current) inputRef.current.value = ''
+        }
+    }
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files) processFiles(event.target.files)
+    }
+
+    const handleDrag = (e: React.DragEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (e.type === "dragenter" || e.type === "dragover") {
+            setIsDragging(true)
+        } else if (e.type === "dragleave") {
+            setIsDragging(false)
+        }
+    }
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsDragging(false)
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            processFiles(e.dataTransfer.files)
         }
     }
 
@@ -179,49 +257,95 @@ const FileUpload = ({
             <input
                 type="file"
                 accept={accept}
+                multiple={multiple}
                 style={{ display: 'none' }}
                 ref={inputRef}
                 onChange={handleFileChange}
             />
 
             {!hasFile ? (
-                <Stack direction="column" spacing={1}>
-                    <Stack direction="row" spacing={1} alignItems="center">
-                        <Button
-                            variant="outlined"
-                            color={error ? "error" : "inherit"}
-                            startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <CloudUpload />}
-                            onClick={() => inputRef.current?.click()}
-                            fullWidth={fullWidth}
-                            disabled={loading || finalDisabled}
-                            sx={{
-                                flexGrow: 1,
-                                minHeight: '56px',
-                                position: 'relative',
-                                '& .MuiButton-startIcon': {
-                                    position: 'absolute',
-                                    left: 16,
-                                    marginRight: 0,
-                                    marginLeft: 0
-                                },
-                                '& .MuiButton-label': {
-                                    textAlign: 'center',
-                                    width: '100%',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                },
-                                ...(!error && { borderColor: 'var(--color-border)' })
-                            }}
-                        >
-                            {loading ? 'Carregando...' : label} {required && !loading && '*'}
-                        </Button>
-                        {loading && (
-                            <IconButton color="error" onClick={cancelUpload} title="Cancelar Upload">
-                                <Stop />
-                            </IconButton>
-                        )}
+                <Stack direction="column" spacing={2}>
+                    <Stack 
+                        direction="column" 
+                        spacing={1} 
+                        alignItems="center"
+                        onDragEnter={handleDrag}
+                        onDragLeave={handleDrag}
+                        onDragOver={handleDrag}
+                        onDrop={handleDrop}
+                        sx={{
+                            border: '2px dashed',
+                            borderColor: isDragging ? 'primary.main' : 'var(--color-border)',
+                            borderRadius: 1,
+                            p: 3,
+                            bgcolor: isDragging ? 'action.hover' : 'transparent',
+                            transition: 'all 0.2s ease',
+                            cursor: 'pointer',
+                            '&:hover': {
+                                borderColor: 'primary.main',
+                                bgcolor: 'action.hover'
+                            }
+                        }}
+                        onClick={() => inputRef.current?.click()}
+                    >
+                        <CloudUpload sx={{ fontSize: 40, color: isDragging ? 'primary.main' : 'text.secondary', mb: 1 }} />
+                        <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                            {loading ? 'Processando...' : label}
+                        </Typography>
+                        <Typography variant="caption" color="textSecondary">
+                            {multiple ? 'Arraste vários arquivos ou clique para selecionar' : 'Arraste um arquivo ou clique para selecionar'}
+                        </Typography>
+                        
+                        {loading && <CircularProgress size={24} sx={{ mt: 1 }} />}
                     </Stack>
+
+                    {/* Multi-file preview list */}
+                    {multiple && selectedFiles.length > 0 && (
+                        <Box sx={{ mt: 1 }}>
+                            <Typography variant="caption" sx={{ mb: 1, display: 'block', fontWeight: 600 }}>
+                                Arquivos Selecionados ({selectedFiles.length}):
+                            </Typography>
+                            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                                {selectedFiles.map((file, index) => (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            p: 0.5,
+                                            border: '1px solid var(--color-border)',
+                                            borderRadius: 1,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 1,
+                                            bgcolor: 'background.paper',
+                                            maxWidth: 200
+                                        }}
+                                    >
+                                        {file.base64.startsWith('data:image') && (
+                                            <img 
+                                                src={file.base64} 
+                                                alt="preview" 
+                                                style={{ width: 30, height: 30, borderRadius: 4, objectFit: 'cover' }} 
+                                            />
+                                        )}
+                                        <Typography variant="caption" noWrap sx={{ flex: 1 }}>
+                                            {file.name}
+                                        </Typography>
+                                        <IconButton 
+                                            size="small" 
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                const newFiles = selectedFiles.filter((_, i) => i !== index)
+                                                setSelectedFiles(newFiles)
+                                                if (onMultipleChange) onMultipleChange(newFiles)
+                                            }}
+                                        >
+                                            <Close fontSize="small" />
+                                        </IconButton>
+                                    </Box>
+                                ))}
+                            </Stack>
+                        </Box>
+                    )}
 
                     {helperText && <Typography variant="caption" color={error ? "error" : "textSecondary"}>{helperText}</Typography>}
                 </Stack>
